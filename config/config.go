@@ -5,7 +5,7 @@ import (
 )
 
 const (
-	cfgPathKey      = "cfg"
+	cfgPathKey      = "config"
 	destPathKey     = "dest"
 	failureKey      = "failure"
 	quietKey        = "quiet"

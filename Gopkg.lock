@@ -20,6 +20,12 @@
   version = "v1.0.3"
 
 [[projects]]
+  name = "github.com/pkg/errors"
+  packages = ["."]
+  revision = "645ef00459ed84a119197bfb8d8205042c6df63d"
+  version = "v0.8.0"
+
+[[projects]]
   branch = "master"
   name = "github.com/serenize/snaker"
   packages = ["."]
@@ -40,6 +46,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "154ee10bbfb4ae455c16347c72226194c28b54c47bdf3d464390493807db260a"
+  inputs-digest = "1ef5308d5c15561fcc0124f3e4e7fa5ba74d2554bb47c2779296831f41009e2b"
   solver-name = "gps-cdcl"
   solver-version = 1

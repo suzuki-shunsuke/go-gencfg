@@ -46,17 +46,17 @@ global:
 params:
 - name: port
   type: string
-	description:
+  description:
   default:
   env:
     name:
     prefix: SAMPLE_
     bind: false
   flag:
-	  name:
+    name:
     description:
     short:
-		bind: true
+    bind: true
 ```
 
 Edit the configuration file as you like.
@@ -141,7 +141,7 @@ gencfg version 0.1.0
 `gencfg compare -f` returns `0` if the result of `gencfg gen` and existing code is equal and otherwise returns not `0`.
 It is useful for CI.
 
-## Congiguration
+## Configuration
 
 See [CONFIGURATION.md](docs/CONFIGURATION.md) .
 

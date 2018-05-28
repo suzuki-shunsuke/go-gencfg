@@ -7,6 +7,8 @@ const GenCfgTmpl = `
 dest: config/config.go
 template:
 test_template:
+formatters:
+- gofmt -l -s -w
 global:
   env:
     bind: false
