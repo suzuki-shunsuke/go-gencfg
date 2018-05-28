@@ -1,7 +1,7 @@
 package config
 
 import (
-	"github.com/urfave/cli"
+	"github.com/suzuki-shunsuke/go-gencfg/domain"
 )
 
 const (
@@ -14,36 +14,36 @@ const (
 )
 
 // GetCfgPath returns the configuration file path.
-func GetCfgPath(c *cli.Context) string {
+func GetCfgPath(c domain.CLIContext) string {
 	return c.String(cfgPathKey)
 }
 
 // GetDestPath returns the created file path.
-func GetDestPath(c *cli.Context) string {
+func GetDestPath(c domain.CLIContext) string {
 	return c.String(destPathKey)
 }
 
 // GetTemplatePath returns the template file path.
-func GetTemplatePath(c *cli.Context) string {
+func GetTemplatePath(c domain.CLIContext) string {
 	return c.String(templateKey)
 }
 
 // GetTestTemplatePath returns the test template file path.
-func GetTestTemplatePath(c *cli.Context) string {
+func GetTestTemplatePath(c domain.CLIContext) string {
 	return c.String(testTemplateKey)
 }
 
 // GetParamNames returns the param names.
-func GetParamNames(c *cli.Context) []string {
+func GetParamNames(c domain.CLIContext) []string {
 	return []string(c.Args())
 }
 
 // GetFailure returns failure option.
-func GetFailure(c *cli.Context) bool {
+func GetFailure(c domain.CLIContext) bool {
 	return c.Bool(failureKey)
 }
 
 // GetQuiet returns quiet option.
-func GetQuiet(c *cli.Context) bool {
+func GetQuiet(c domain.CLIContext) bool {
 	return c.Bool(quietKey)
 }

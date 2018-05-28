@@ -1,5 +1,9 @@
 package domain
 
+import (
+	"github.com/urfave/cli"
+)
+
 type (
 	// FileExist checks whether a file exists.
 	FileExist interface {
@@ -44,5 +48,12 @@ type (
 	// StrFormatter formats a string running commands.
 	StrFormatter interface {
 		Format(dest, text string, formatters []string, reader FileReader, executer CmdExecuter) (string, error)
+	}
+
+	// CLIContext represents a urfave.cli interface.
+	CLIContext interface {
+		String(string) string
+		Bool(string) bool
+		Args() cli.Args
 	}
 )
