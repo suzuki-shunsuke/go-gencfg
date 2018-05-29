@@ -15,11 +15,12 @@ func CmdCompare(c *cli.Context) error {
 	renderer := registry.NewTemplateRenderer()
 	executer := registry.NewCmdExecuter()
 	strFormatter := registry.NewStrFormatter()
+	cfgUsecase := registry.NewCfgUsecase()
 	err := usecase.Compare(
 		config.GetCfgPath(c), config.GetDestPath(c),
 		config.GetTemplatePath(c), config.GetTestTemplatePath(c),
 		config.GetFailure(c), config.GetQuiet(c),
-		cfgReader, renderer, reader, executer, strFormatter)
+		cfgReader, renderer, reader, executer, strFormatter, cfgUsecase)
 	if err == nil {
 		return nil
 	}

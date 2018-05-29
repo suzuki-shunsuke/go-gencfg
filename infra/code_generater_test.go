@@ -14,7 +14,7 @@ func TestCodeGeneraterExec(t *testing.T) {
 			DirMaker:   NoopDirMaker{},
 			FileWriter: NoopFileWriter{},
 		}
-		if err := cg.Exec("/tmp/hello.go", "", domain.Cfg{}); err != nil {
+		if err := cg.Exec("/tmp/hello.go", "", domain.TemplateData{}); err != nil {
 			t.Fatal(err)
 		}
 	})
@@ -24,7 +24,7 @@ func TestCodeGeneraterExec(t *testing.T) {
 			DirMaker:   ErrDirMaker{},
 			FileWriter: NoopFileWriter{},
 		}
-		if err := cg.Exec("/tmp/hello.go", "", domain.Cfg{}); err == nil {
+		if err := cg.Exec("/tmp/hello.go", "", domain.TemplateData{}); err == nil {
 			t.Fatal("it should be failed to make directory")
 		}
 	})
@@ -34,7 +34,7 @@ func TestCodeGeneraterExec(t *testing.T) {
 			DirMaker:   NoopDirMaker{},
 			FileWriter: NoopFileWriter{},
 		}
-		if err := cg.Exec("/tmp/hello.go", "", domain.Cfg{}); err == nil {
+		if err := cg.Exec("/tmp/hello.go", "", domain.TemplateData{}); err == nil {
 			t.Fatal("it should be failed to render template")
 		}
 	})

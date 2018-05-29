@@ -17,7 +17,7 @@ type (
 )
 
 // Exec generates code with template and configuration.
-func (cg CodeGenerater) Exec(dest, cfgTmpl string, config domain.Cfg) error {
+func (cg CodeGenerater) Exec(dest, cfgTmpl string, config domain.TemplateData) error {
 	// create directory
 	dir := filepath.Dir(dest)
 	fmt.Printf("create %s\n", dir)

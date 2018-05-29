@@ -14,10 +14,11 @@ func CmdGen(c *cli.Context) error {
 	cfgReader := registry.NewCfgReader()
 	executer := registry.NewCmdExecuter()
 	reader := registry.NewFileReader()
+	cfgUsecase := registry.NewCfgUsecase()
 	err := usecase.GenCfgFile(
 		config.GetCfgPath(c), config.GetDestPath(c),
 		config.GetTemplatePath(c), config.GetTestTemplatePath(c),
-		reader, cfgReader, generater, executer)
+		reader, cfgReader, generater, executer, cfgUsecase)
 	if err == nil {
 		return nil
 	}

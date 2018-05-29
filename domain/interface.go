@@ -32,7 +32,7 @@ type (
 
 	// CodeGenerater generates code at files with a template and data.
 	CodeGenerater interface {
-		Exec(dest, tmpl string, config Cfg) error
+		Exec(dest, tmpl string, config TemplateData) error
 	}
 
 	// CfgReader represents the command configuration reader.

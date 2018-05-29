@@ -1,4 +1,4 @@
-package domain_test
+package usecase_test
 
 import (
 	"testing"
@@ -6,24 +6,27 @@ import (
 	"github.com/suzuki-shunsuke/go-ptr"
 
 	"github.com/suzuki-shunsuke/go-gencfg/domain"
+	"github.com/suzuki-shunsuke/go-gencfg/usecase"
 )
 
-func TestCfgHasFlag(t *testing.T) {
+func TestCfgUsecaseHasFlag(t *testing.T) {
 	cfg := domain.Cfg{}
-	if cfg.HasFlag() {
+	cfgUC := usecase.CfgUsecase{}
+	if cfgUC.HasFlag(cfg) {
 		t.Fatal("cfg.HasFlag() = true, wanted false")
 	}
 	cfg.Params = []domain.Param{{}}
-	if cfg.HasFlag() {
+	if cfgUC.HasFlag(cfg) {
 		t.Fatal("cfg.HasFlag() = true, wanted false")
 	}
 	cfg.Params = []domain.Param{{Flag: domain.Flag{Bind: ptr.PBool(true)}}}
-	if !cfg.HasFlag() {
+	if !cfgUC.HasFlag(cfg) {
 		t.Fatal("cfg.HasFlag() = false, wanted true")
 	}
 }
 
-func TestCfgUpdate(t *testing.T) {
+func TestCfgUsecaseUpdate(t *testing.T) {
 	cfg := domain.Cfg{}
-	cfg.Update()
+	cfgUC := usecase.CfgUsecase{}
+	cfgUC.Update(&cfg)
 }

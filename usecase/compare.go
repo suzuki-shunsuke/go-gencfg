@@ -10,14 +10,15 @@ import (
 )
 
 // Compare generates the configuration wrapper and test file.
-func Compare(cfgPath, dest, tmplPath, testTmplPath string, isFailure, isQuiet bool, cfgReader domain.CfgReader, renderer domain.TemplateRenderer, reader domain.FileReader, executer domain.CmdExecuter, strFormatter domain.StrFormatter) error {
+func Compare(cfgPath, dest, tmplPath, testTmplPath string, isFailure, isQuiet bool, cfgReader domain.CfgReader, renderer domain.TemplateRenderer, reader domain.FileReader, executer domain.CmdExecuter, strFormatter domain.StrFormatter, cfgUsecase domain.CfgUsecase) error {
 	// read the config from file
 	// parse the config
 	config, err := cfgReader.Read(cfgPath)
 	if err != nil {
 		return err
 	}
-	config.Update()
+	cfgUsecase.Update(&config)
+	td := domain.TemplateData{Cfg: config, CfgUC: cfgUsecase}
 	if dest == "" {
 		if config.Dest != "" {
 			dest = config.Dest
@@ -43,7 +44,7 @@ func Compare(cfgPath, dest, tmplPath, testTmplPath string, isFailure, isQuiet bo
 		return err
 	}
 	// render the config
-	exp, err := renderer.Render(strings.Trim(cfgTmpl, "\n"), config)
+	exp, err := renderer.Render(strings.Trim(cfgTmpl, "\n"), td)
 	if err != nil {
 		return err
 	}

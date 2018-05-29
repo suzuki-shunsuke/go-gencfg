@@ -2,6 +2,7 @@ package domain
 
 import (
 	"fmt"
+	"strings"
 )
 
 type (
@@ -44,5 +45,5 @@ func (e Env) GetName(pName string, gPrefix *string) string {
 	if e.Name != nil {
 		return *e.Name
 	}
-	return fmt.Sprintf("%s%s", e.GetPrefix(gPrefix), pName)
+	return strings.ToUpper(fmt.Sprintf("%s%s", e.GetPrefix(gPrefix), pName))
 }

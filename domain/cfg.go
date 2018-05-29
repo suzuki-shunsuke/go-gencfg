@@ -1,9 +1,5 @@
 package domain
 
-import (
-	"sort"
-)
-
 type (
 	// Cfg represents the configuration.
 	Cfg struct {
@@ -14,19 +10,16 @@ type (
 		Global           Global   `yaml:"global"`
 		Params           []Param  `yaml:"params"`
 	}
-)
 
-// HasFlag returns whether there is a bound flag.
-func (cfg Cfg) HasFlag() bool {
-	for _, p := range cfg.Params {
-		if p.Flag.IsBind(cfg.Global.Flag.Bind) {
-			return true
-		}
+	// CfgUsecase represents application logic about Cfg
+	CfgUsecase interface {
+		HasFlag(Cfg) bool
+		Update(*Cfg)
 	}
-	return false
-}
 
-// Update updates cfg before rendering.
-func (cfg Cfg) Update() {
-	sort.Sort(Params(cfg.Params))
-}
+	// TemplateData is the argument of domain.TemplateRenderer.Render .
+	TemplateData struct {
+		Cfg   Cfg
+		CfgUC CfgUsecase
+	}
+)

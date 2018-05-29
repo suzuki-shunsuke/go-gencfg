@@ -2,31 +2,31 @@ package usecase
 
 // DefaultCfgTmpl is the default template of the generated wrapper code.
 const DefaultCfgTmpl = `
-{{ $global := .Global -}}
-// cfg wraps viper for the application
-package cfg
+{{ $global := .Cfg.Global -}}
+// Package config wraps viper for the application
+package config
 
 import (
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
 )
 
-{{if .Params -}}
+{{if .Cfg.Params -}}
 const (
-{{- range .Params}}
+{{- range .Cfg.Params}}
 	{{.CamelCaseLowerName}}Key = "{{.Name}}"
 {{- end}}
 )
 {{- end}}
 
 func init() {
-{{- if .Params}}
-  {{- range .Params}}
+{{- if .Cfg.Params}}
+  {{- range .Cfg.Params}}
     {{- if .Env.IsBind $global.Env.Bind }}
 	viper.BindEnv({{.CamelCaseLowerName}}Key, "{{.Env.GetName .Name $global.Env.Prefix}}")
     {{- end}}
   {{- end}}
-  {{- range .Params}}
+  {{- range .Cfg.Params}}
     {{- if .IsSetDefault }}
 	viper.SetDefault({{.CamelCaseLowerName}}Key, {{.GetDefaultStr}})
     {{- end}}
@@ -39,13 +39,13 @@ func init() {
 	viper.BindPFlag({{.CamelCaseLowerName}}Key, pflag.Lookup("{{.GetFlagName}}"))
     {{- end}}
   {{- end}}
-  {{- if .HasFlag}}
+  {{- if .CfgUC.HasFlag .Cfg}}
 	pflag.Parse()
   {{- end}}
 {{- end}}
 }
 
-{{- range .Params}}
+{{- range .Cfg.Params}}
 
 // Get{{.CamelCaseName}} returns a {{.Name}}.
 func Get{{.CamelCaseName}}() {{.GetType}} {

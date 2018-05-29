@@ -3,6 +3,7 @@ package registry
 import (
 	"github.com/suzuki-shunsuke/go-gencfg/domain"
 	"github.com/suzuki-shunsuke/go-gencfg/infra"
+	"github.com/suzuki-shunsuke/go-gencfg/usecase"
 )
 
 // NewCfgReader returns a new domain.CfgReader.
@@ -47,4 +48,9 @@ func NewCmdExecuter() domain.CmdExecuter {
 // NewStrFormatter returns a new domain.StrFormatter.
 func NewStrFormatter() domain.StrFormatter {
 	return infra.StrFormatter{}
+}
+
+// NewCfgUsecase returns a new domain.CfgUsecase.
+func NewCfgUsecase() domain.CfgUsecase {
+	return usecase.CfgUsecase{}
 }
