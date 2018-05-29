@@ -1,7 +1,9 @@
 package usecase
 
 import (
+	"path/filepath"
 	"sort"
+	"strings"
 
 	"github.com/suzuki-shunsuke/go-gencfg/domain"
 )
@@ -25,6 +27,10 @@ func (uc CfgUsecase) HasFlag(flagUC domain.FlagUsecase, cfg domain.Cfg) bool {
 func (uc CfgUsecase) GetPkgName(cfg domain.Cfg) string {
 	if cfg.PkgName != "" {
 		return cfg.PkgName
+	}
+	if cfg.Pkg != "" {
+		a := strings.Split(filepath.Base(cfg.Pkg), "-")
+		return strings.Split(a[len(a)-1], ".")[0]
 	}
 	return "config"
 }
