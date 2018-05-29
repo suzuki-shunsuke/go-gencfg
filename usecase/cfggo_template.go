@@ -50,13 +50,13 @@ func init() {
 
 {{- range .Cfg.Params}}
 
-// Get{{.CamelCaseName}} returns a {{.Name}}.
-func Get{{.CamelCaseName}}() {{$paramUC.GetType .}} {
+// Get{{$paramUC.CamelCaseName .}} returns a {{.Name}}.
+func Get{{$paramUC.CamelCaseName .}}() {{$paramUC.GetType .}} {
 	return viper.{{$paramUC.GetViperGetterName .}}({{$paramUC.CamelCaseLowerName .}}Key)
 }
 
-// Set{{.CamelCaseName}} sets a {{.Name}}.
-func Set{{.CamelCaseName}}(value {{.GetType}}) {
+// Set{{$paramUC.CamelCaseName .}} sets a {{.Name}}.
+func Set{{$paramUC.CamelCaseName .}}(value {{$paramUC.GetType .}}) {
 	viper.Set({{$paramUC.CamelCaseLowerName .}}Key, value)
 }
 {{- end}}

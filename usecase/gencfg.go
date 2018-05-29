@@ -35,10 +35,11 @@ func GenCfgFile(args domain.GenCfgFileArgs) error {
 	}
 	cfgUC.Update(&config)
 	td := domain.TemplateData{
-		Cfg:    config,
-		CfgUC:  cfgUC,
-		EnvUC:  args.EnvUC,
-		FlagUC: args.FlagUC}
+		Cfg:     config,
+		CfgUC:   cfgUC,
+		EnvUC:   args.EnvUC,
+		FlagUC:  args.FlagUC,
+		ParamUC: args.ParamUC}
 
 	// set config.Dest
 	if dest == "" {

@@ -2,6 +2,7 @@ package usecase
 
 // DefaultCfgTestTmpl is the default template of the generated wrapper test code.
 const DefaultCfgTestTmpl = `
+{{ $paramUC := .ParamUC -}}
 package config_test
 
 import (
@@ -10,14 +11,14 @@ import (
 )
 
 {{- range .Cfg.Params}}
-func Test{{.CamelCaseName}}(t *testing.T) {
+func Test{{$paramUC.CamelCaseName .}}(t *testing.T) {
 	// write your test
-	config.Get{{.CamelCaseName}}()
+	config.Get{{$paramUC.CamelCaseName .}}()
 }
 
-func TestSet{{.CamelCaseName}}(t *testing.T) {
+func TestSet{{$paramUC.CamelCaseName .}}(t *testing.T) {
 	// write your test
-	config.Set{{.CamelCaseName}}({{.GetDefaultStr}})
+	config.Set{{$paramUC.CamelCaseName .}}({{ $paramUC.GetDefaultStr .}})
 }
 {{- end}}
 `

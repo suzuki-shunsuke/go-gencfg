@@ -19,10 +19,11 @@ type (
 
 	// TemplateData is the argument of domain.TemplateRenderer.Render .
 	TemplateData struct {
-		Cfg    Cfg
-		CfgUC  CfgUsecase
-		EnvUC  EnvUsecase
-		FlagUC FlagUsecase
+		Cfg     Cfg
+		CfgUC   CfgUsecase
+		EnvUC   EnvUsecase
+		FlagUC  FlagUsecase
+		ParamUC ParamUsecase
 	}
 
 	// Env represents environment variable.
