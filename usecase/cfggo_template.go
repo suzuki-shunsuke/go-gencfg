@@ -3,6 +3,7 @@ package usecase
 // DefaultCfgTmpl is the default template of the generated wrapper code.
 const DefaultCfgTmpl = `
 {{ $global := .Cfg.Global -}}
+{{ $envUC := .EnvUC -}}
 // Package config wraps viper for the application
 package config
 
@@ -22,8 +23,8 @@ const (
 func init() {
 {{- if .Cfg.Params}}
   {{- range .Cfg.Params}}
-    {{- if .Env.IsBind $global.Env.Bind }}
-	viper.BindEnv({{.CamelCaseLowerName}}Key, "{{.Env.GetName .Name $global.Env.Prefix}}")
+    {{- if $envUC.IsBind .Env $global.Env.Bind }}
+	viper.BindEnv({{.CamelCaseLowerName}}Key, "{{$envUC.GetName .Env .Name $global.Env.Prefix}}")
     {{- end}}
   {{- end}}
   {{- range .Cfg.Params}}

@@ -11,15 +11,10 @@ type (
 		Params           []Param  `yaml:"params"`
 	}
 
-	// CfgUsecase represents application logic about Cfg
-	CfgUsecase interface {
-		HasFlag(Cfg) bool
-		Update(*Cfg)
-	}
-
 	// TemplateData is the argument of domain.TemplateRenderer.Render .
 	TemplateData struct {
 		Cfg   Cfg
 		CfgUC CfgUsecase
+		EnvUC EnvUsecase
 	}
 )

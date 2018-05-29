@@ -54,3 +54,8 @@ func NewStrFormatter() domain.StrFormatter {
 func NewCfgUsecase() domain.CfgUsecase {
 	return usecase.CfgUsecase{}
 }
+
+// NewEnvUsecase returns a new domain.EnvUsecase.
+func NewEnvUsecase() domain.EnvUsecase {
+	return usecase.EnvUsecase{}
+}

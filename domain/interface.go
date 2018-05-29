@@ -56,4 +56,17 @@ type (
 		Bool(string) bool
 		Args() cli.Args
 	}
+
+	// CfgUsecase represents application logic about Cfg
+	CfgUsecase interface {
+		HasFlag(Cfg) bool
+		Update(*Cfg)
+	}
+
+	// EnvUsecase represents application logic about Env
+	EnvUsecase interface {
+		IsBind(e Env, def *bool) bool
+		GetPrefix(e Env, gPrefix *string) string
+		GetName(e Env, pName string, gPrefix *string) string
+	}
 )
