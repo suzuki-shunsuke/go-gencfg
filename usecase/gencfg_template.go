@@ -5,6 +5,7 @@ const GenCfgTmpl = `
 ---
 # https://github.com/suzuki-shunsuke/go-gencfg
 dest: config/config.go
+package_name:
 template:
 test_template:
 formatters:

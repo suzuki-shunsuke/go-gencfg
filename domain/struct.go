@@ -11,6 +11,7 @@ type (
 	Cfg struct {
 		Formatters       []string `yaml:"formatters"`
 		Dest             string   `yaml:"dest"`
+		PkgName          string   `yaml:"package_name"`
 		TemplatePath     string   `yaml:"template"`
 		TestTemplatePath string   `yaml:"test_template"`
 		Global           Global   `yaml:"global"`
