@@ -4,12 +4,13 @@ import (
 	"testing"
 
 	"github.com/suzuki-shunsuke/go-gencfg/infra"
+	"github.com/suzuki-shunsuke/go-gencfg/test"
 )
 
 func TestStrFormatterFormat(t *testing.T) {
 	formatter := infra.StrFormatter{}
-	reader := NoopFileReader{content: "hello"}
-	executer := NoopCmdExecuter{}
+	reader := test.NoopFileReader{Content: "hello"}
+	executer := test.NoopCmdExecuter{}
 	t.Run("positive", func(t *testing.T) {
 		if _, err := formatter.Format("/tmp/hello.go", "", nil, reader, executer); err != nil {
 			t.Fatal(err)

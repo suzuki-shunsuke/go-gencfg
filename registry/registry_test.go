@@ -37,3 +37,19 @@ func TestNewCmdExecuter(t *testing.T) {
 func TestNewStrFormatter(t *testing.T) {
 	registry.NewStrFormatter()
 }
+
+func TestNewCfgUsecase(t *testing.T) {
+	registry.NewCfgUsecase()
+}
+
+func TestNewEnvUsecase(t *testing.T) {
+	registry.NewEnvUsecase()
+}
+
+func TestNewFlagUsecase(t *testing.T) {
+	registry.NewFlagUsecase()
+}
+
+func TestNewParamUsecase(t *testing.T) {
+	registry.NewParamUsecase()
+}

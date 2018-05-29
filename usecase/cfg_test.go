@@ -26,8 +26,41 @@ func TestCfgUsecaseHasFlag(t *testing.T) {
 	}
 }
 
+func TestCfgUsecaseGetPkgName(t *testing.T) {
+	cfg := domain.Cfg{}
+	cfgUC := usecase.CfgUsecase{}
+	exp := "config"
+	act := cfgUC.GetPkgName(cfg)
+	if act != exp {
+		t.Fatalf(`cfgUC.GetPkgName(cfg) = "%s", wanted "%s"`, act, exp)
+	}
+	exp = "hoge"
+	cfg.PkgName = exp
+	act = cfgUC.GetPkgName(cfg)
+	if act != exp {
+		t.Fatalf(`cfgUC.GetPkgName(cfg) = "%s", wanted "%s"`, act, exp)
+	}
+	cfg.PkgName = ""
+	cfg.Pkg = "github.com/suzuki-shunsuke/go-hoge.v2"
+	act = cfgUC.GetPkgName(cfg)
+	if act != exp {
+		t.Fatalf(`cfgUC.GetPkgName(cfg) = "%s", wanted "%s"`, act, exp)
+	}
+}
+
+func TestCfgUsecaseGetPkg(t *testing.T) {
+	cfg := domain.Cfg{}
+	cfgUC := usecase.CfgUsecase{}
+	exp := ""
+	act := cfgUC.GetPkg(cfg)
+	if act != exp {
+		t.Fatalf(`cfgUC.GetPkg(cfg) = "%s", wanted "%s"`, act, exp)
+	}
+}
+
 func TestCfgUsecaseUpdate(t *testing.T) {
 	cfg := domain.Cfg{}
 	cfgUC := usecase.CfgUsecase{}
 	cfgUC.Update(&cfg)
+	cfgUC.Update(nil)
 }

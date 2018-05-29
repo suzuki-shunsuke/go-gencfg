@@ -5,14 +5,15 @@ import (
 
 	"github.com/suzuki-shunsuke/go-gencfg/domain"
 	"github.com/suzuki-shunsuke/go-gencfg/infra"
+	"github.com/suzuki-shunsuke/go-gencfg/test"
 )
 
 func TestCodeGeneraterExec(t *testing.T) {
 	t.Run("positive", func(t *testing.T) {
 		cg := infra.CodeGenerater{
-			Renderer:   NoopRenderer{},
-			DirMaker:   NoopDirMaker{},
-			FileWriter: NoopFileWriter{},
+			Renderer:   test.NoopTemplateRenderer{},
+			DirMaker:   test.NoopDirMaker{},
+			FileWriter: test.NoopFileWriter{},
 		}
 		if err := cg.Exec("/tmp/hello.go", "", domain.TemplateData{}); err != nil {
 			t.Fatal(err)
@@ -20,9 +21,9 @@ func TestCodeGeneraterExec(t *testing.T) {
 	})
 	t.Run("failed to mkdir", func(t *testing.T) {
 		cg := infra.CodeGenerater{
-			Renderer:   NoopRenderer{},
-			DirMaker:   ErrDirMaker{},
-			FileWriter: NoopFileWriter{},
+			Renderer:   test.NoopTemplateRenderer{},
+			DirMaker:   test.ErrDirMaker{},
+			FileWriter: test.NoopFileWriter{},
 		}
 		if err := cg.Exec("/tmp/hello.go", "", domain.TemplateData{}); err == nil {
 			t.Fatal("it should be failed to make directory")
@@ -30,9 +31,9 @@ func TestCodeGeneraterExec(t *testing.T) {
 	})
 	t.Run("failed to renderer", func(t *testing.T) {
 		cg := infra.CodeGenerater{
-			Renderer:   ErrRenderer{},
-			DirMaker:   NoopDirMaker{},
-			FileWriter: NoopFileWriter{},
+			Renderer:   test.ErrTemplateRenderer{},
+			DirMaker:   test.NoopDirMaker{},
+			FileWriter: test.NoopFileWriter{},
 		}
 		if err := cg.Exec("/tmp/hello.go", "", domain.TemplateData{}); err == nil {
 			t.Fatal("it should be failed to render template")

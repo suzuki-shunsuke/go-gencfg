@@ -16,10 +16,15 @@ func TestFlagIsBind(t *testing.T) {
 		t.Fatal("flagUC.IsBind(flag, nil) = true, wanted false")
 	}
 	if !flagUC.IsBind(flag, ptr.PBool(true)) {
-		t.Fatal("flag.IsBind(nil) = false, wanted true")
+		t.Fatal("flagUC.IsBind(flag, nil) = false, wanted true")
 	}
 	flag.Bind = ptr.PBool(true)
 	if !flagUC.IsBind(flag, nil) {
-		t.Fatal("flag.IsBind(nil) = false, wanted true")
+		t.Fatal("flagUC.IsBind(flag, nil) = false, wanted true")
+	}
+	flag.Bind = nil
+	flag.Name = ptr.PStr("hello")
+	if !flagUC.IsBind(flag, nil) {
+		t.Fatal("flagUC.IsBind(flag, nil) = false, wanted true")
 	}
 }
