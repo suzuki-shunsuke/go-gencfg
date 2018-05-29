@@ -6,8 +6,9 @@ const DefaultCfgTmpl = `
 {{ $envUC := .EnvUC -}}
 {{ $flagUC := .FlagUC -}}
 {{ $paramUC := .ParamUC -}}
-// Package config wraps viper for the application
-package config
+{{ $pkgName := .CfgUC.GetPkgName .Cfg -}}
+// Package {{$pkgName}} wraps viper for the application
+package {{$pkgName}}
 
 import (
 	"github.com/spf13/pflag"

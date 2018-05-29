@@ -21,6 +21,14 @@ func (uc CfgUsecase) HasFlag(flagUC domain.FlagUsecase, cfg domain.Cfg) bool {
 	return false
 }
 
+// GetPkgName returns the package name.
+func (uc CfgUsecase) GetPkgName(cfg domain.Cfg) string {
+	if cfg.PkgName != "" {
+		return cfg.PkgName
+	}
+	return "config"
+}
+
 // Update updates cfg before rendering.
 func (uc CfgUsecase) Update(cfg *domain.Cfg) {
 	if cfg == nil {
