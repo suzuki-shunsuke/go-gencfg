@@ -59,3 +59,8 @@ func NewCfgUsecase() domain.CfgUsecase {
 func NewEnvUsecase() domain.EnvUsecase {
 	return usecase.EnvUsecase{}
 }
+
+// NewFlagUsecase returns a new domain.FlagUsecase.
+func NewFlagUsecase() domain.FlagUsecase {
+	return usecase.FlagUsecase{}
+}

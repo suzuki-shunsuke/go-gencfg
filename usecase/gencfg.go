@@ -20,14 +20,26 @@ func ValidateDest(dest string) error {
 }
 
 // GenCfgFile generates the configuration wrapper and test file.
-func GenCfgFile(src, dest, tmplPath, testTmplPath string, reader domain.FileReader, cfgReader domain.CfgReader, generater domain.CodeGenerater, executer domain.CmdExecuter, cfgUsecase domain.CfgUsecase, envUC domain.EnvUsecase) error {
+func GenCfgFile(args domain.GenCfgFileArgs) error {
+	reader := args.Reader
+	cfgUC := args.CfgUC
+	generater := args.Generater
+	executer := args.Executer
+	dest := args.Dest
+	tmplPath := args.TmplPath
+	testTmplPath := args.TestTmplPath
+
 	// read and parse the config from file
-	config, err := cfgReader.Read(src)
+	config, err := args.CfgReader.Read(args.Src)
 	if err != nil {
 		return errors.Wrap(err, "failed to read configuration file")
 	}
-	cfgUsecase.Update(&config)
-	td := domain.TemplateData{Cfg: config, CfgUC: cfgUsecase, EnvUC: envUC}
+	cfgUC.Update(&config)
+	td := domain.TemplateData{
+		Cfg:    config,
+		CfgUC:  cfgUC,
+		EnvUC:  args.EnvUC,
+		FlagUC: args.FlagUC}
 
 	// set config.Dest
 	if dest == "" {

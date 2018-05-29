@@ -38,6 +38,12 @@
   version = "v1.0.0"
 
 [[projects]]
+  name = "github.com/suzuki-shunsuke/go-ptr"
+  packages = ["."]
+  revision = "974e4afeaf714a288594b077987a10416b15a03c"
+  version = "v0.1.0"
+
+[[projects]]
   name = "github.com/urfave/cli"
   packages = ["."]
   revision = "cfb38830724cc34fedffe9a2a29fb54fa9169cd1"
@@ -46,6 +52,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "1ef5308d5c15561fcc0124f3e4e7fa5ba74d2554bb47c2779296831f41009e2b"
+  inputs-digest = "a3ccb44ae903dba2533e1ef81827da113967cfd69a1c492a5e6a9b59e8cfcb5a"
   solver-name = "gps-cdcl"
   solver-version = 1

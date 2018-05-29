@@ -12,15 +12,16 @@ import (
 func TestCfgUsecaseHasFlag(t *testing.T) {
 	cfg := domain.Cfg{}
 	cfgUC := usecase.CfgUsecase{}
-	if cfgUC.HasFlag(cfg) {
+	flagUC := usecase.FlagUsecase{}
+	if cfgUC.HasFlag(flagUC, cfg) {
 		t.Fatal("cfg.HasFlag() = true, wanted false")
 	}
 	cfg.Params = []domain.Param{{}}
-	if cfgUC.HasFlag(cfg) {
+	if cfgUC.HasFlag(flagUC, cfg) {
 		t.Fatal("cfg.HasFlag() = true, wanted false")
 	}
 	cfg.Params = []domain.Param{{Flag: domain.Flag{Bind: ptr.PBool(true)}}}
-	if !cfgUC.HasFlag(cfg) {
+	if !cfgUC.HasFlag(flagUC, cfg) {
 		t.Fatal("cfg.HasFlag() = false, wanted true")
 	}
 }

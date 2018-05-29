@@ -13,8 +13,16 @@ type (
 
 	// TemplateData is the argument of domain.TemplateRenderer.Render .
 	TemplateData struct {
-		Cfg   Cfg
-		CfgUC CfgUsecase
-		EnvUC EnvUsecase
+		Cfg    Cfg
+		CfgUC  CfgUsecase
+		EnvUC  EnvUsecase
+		FlagUC FlagUsecase
+	}
+
+	// Env represents environment variable.
+	Env struct {
+		Name   *string `yaml:"name"`
+		Prefix *string `yaml:"prefix"`
+		Bind   *bool   `yaml:"bind"`
 	}
 )

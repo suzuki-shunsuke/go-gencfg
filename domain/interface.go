@@ -59,7 +59,7 @@ type (
 
 	// CfgUsecase represents application logic about Cfg
 	CfgUsecase interface {
-		HasFlag(Cfg) bool
+		HasFlag(FlagUsecase, Cfg) bool
 		Update(*Cfg)
 	}
 
@@ -68,5 +68,10 @@ type (
 		IsBind(e Env, def *bool) bool
 		GetPrefix(e Env, gPrefix *string) string
 		GetName(e Env, pName string, gPrefix *string) string
+	}
+
+	// FlagUsecase represents application logic about Env
+	FlagUsecase interface {
+		IsBind(f Flag, def *bool) bool
 	}
 )

@@ -12,9 +12,9 @@ type (
 )
 
 // HasFlag returns whether there is a bound flag.
-func (uc CfgUsecase) HasFlag(cfg domain.Cfg) bool {
+func (uc CfgUsecase) HasFlag(flagUC domain.FlagUsecase, cfg domain.Cfg) bool {
 	for _, p := range cfg.Params {
-		if p.Flag.IsBind(cfg.Global.Flag.Bind) {
+		if flagUC.IsBind(p.Flag, cfg.Global.Flag.Bind) {
 			return true
 		}
 	}

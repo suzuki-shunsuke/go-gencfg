@@ -4,6 +4,7 @@ package usecase
 const DefaultCfgTmpl = `
 {{ $global := .Cfg.Global -}}
 {{ $envUC := .EnvUC -}}
+{{ $flagUC := .FlagUC -}}
 // Package config wraps viper for the application
 package config
 
@@ -31,7 +32,7 @@ func init() {
     {{- if .IsSetDefault }}
 	viper.SetDefault({{.CamelCaseLowerName}}Key, {{.GetDefaultStr}})
     {{- end}}
-    {{- if .Flag.IsBind $global.Flag.Bind }}
+    {{- if $flagUC.IsBind .Flag $global.Flag.Bind }}
 		  {{- if .Flag.Short}}
 	pflag.{{.GetPFlagName}}P("{{.GetFlagName}}", "{{.Flag.Short}}", {{.GetDefaultStr}}, "{{.GetFlagDescription}}")
 		  {{- else}}
@@ -40,7 +41,7 @@ func init() {
 	viper.BindPFlag({{.CamelCaseLowerName}}Key, pflag.Lookup("{{.GetFlagName}}"))
     {{- end}}
   {{- end}}
-  {{- if .CfgUC.HasFlag .Cfg}}
+  {{- if .CfgUC.HasFlag $flagUC .Cfg}}
 	pflag.Parse()
   {{- end}}
 {{- end}}
