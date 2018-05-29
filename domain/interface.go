@@ -74,4 +74,18 @@ type (
 	FlagUsecase interface {
 		IsBind(f Flag, def *bool) bool
 	}
+
+	// ParamUsecase represents application logic about Env
+	ParamUsecase interface {
+		IsSetDefault(p Param) bool
+		GetDefaultStr(p Param) string
+		GetFlagName(p Param) string
+		GetFlagDescription(p Param) string
+		GetEnvName(p Param) string
+		CamelCaseName(p Param) string
+		CamelCaseLowerName(p Param) string
+		GetType(p Param) string
+		GetPFlagName(p Param) string
+		GetViperGetterName(p Param) string
+	}
 )

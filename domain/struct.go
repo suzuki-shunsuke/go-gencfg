@@ -1,6 +1,12 @@
 package domain
 
 type (
+	// Global represents a global configuration.
+	Global struct {
+		Env  Env  `yaml:"env"`
+		Flag Flag `yaml:"flag"`
+	}
+
 	// Cfg represents the configuration.
 	Cfg struct {
 		Formatters       []string `yaml:"formatters"`
@@ -24,5 +30,23 @@ type (
 		Name   *string `yaml:"name"`
 		Prefix *string `yaml:"prefix"`
 		Bind   *bool   `yaml:"bind"`
+	}
+
+	// Flag represents a command line flag.
+	Flag struct {
+		Description *string `yaml:"description"`
+		Name        *string `yaml:"name"`
+		Short       *string `yaml:"short"`
+		Bind        *bool   `yaml:"bind"`
+	}
+
+	// Param represents a parameter.
+	Param struct {
+		Name        string      `yaml:"name"`
+		Type        string      `yaml:"type"`
+		Description string      `yaml:"description"`
+		Default     interface{} `yaml:"default"`
+		Flag        Flag        `yaml:"flag"`
+		Env         Env         `yaml:"env"`
 	}
 )

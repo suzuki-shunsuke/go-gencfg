@@ -5,6 +5,7 @@ const DefaultCfgTmpl = `
 {{ $global := .Cfg.Global -}}
 {{ $envUC := .EnvUC -}}
 {{ $flagUC := .FlagUC -}}
+{{ $paramUC := .ParamUC -}}
 // Package config wraps viper for the application
 package config
 
@@ -16,7 +17,7 @@ import (
 {{if .Cfg.Params -}}
 const (
 {{- range .Cfg.Params}}
-	{{.CamelCaseLowerName}}Key = "{{.Name}}"
+	{{$paramUC.CamelCaseLowerName .}}Key = "{{.Name}}"
 {{- end}}
 )
 {{- end}}
@@ -25,20 +26,20 @@ func init() {
 {{- if .Cfg.Params}}
   {{- range .Cfg.Params}}
     {{- if $envUC.IsBind .Env $global.Env.Bind }}
-	viper.BindEnv({{.CamelCaseLowerName}}Key, "{{$envUC.GetName .Env .Name $global.Env.Prefix}}")
+	viper.BindEnv({{$paramUC.CamelCaseLowerName .}}Key, "{{$envUC.GetName .Env .Name $global.Env.Prefix}}")
     {{- end}}
   {{- end}}
   {{- range .Cfg.Params}}
-    {{- if .IsSetDefault }}
-	viper.SetDefault({{.CamelCaseLowerName}}Key, {{.GetDefaultStr}})
+    {{- if $paramUC.IsSetDefault . }}
+	viper.SetDefault({{$paramUC.CamelCaseLowerName .}}Key, {{ $paramUC.GetDefaultStr .}})
     {{- end}}
     {{- if $flagUC.IsBind .Flag $global.Flag.Bind }}
 		  {{- if .Flag.Short}}
-	pflag.{{.GetPFlagName}}P("{{.GetFlagName}}", "{{.Flag.Short}}", {{.GetDefaultStr}}, "{{.GetFlagDescription}}")
+	pflag.{{$paramUC.GetPFlagName .}}P("{{$paramUC.GetFlagName .}}", "{{.Flag.Short}}", {{$paramUC.GetDefaultStr .}}, "{{$paramUC.GetFlagDescription .}}")
 		  {{- else}}
-	pflag.{{.GetPFlagName}}("{{.GetFlagName}}", {{.GetDefaultStr}}, "{{.GetFlagDescription}}")
+	pflag.{{$paramUC.GetPFlagName .}}("{{$paramUC.GetFlagName .}}", {{$paramUC.GetDefaultStr .}}, "{{$paramUC.GetFlagDescription .}}")
 		  {{- end}}
-	viper.BindPFlag({{.CamelCaseLowerName}}Key, pflag.Lookup("{{.GetFlagName}}"))
+	viper.BindPFlag({{$paramUC.CamelCaseLowerName .}}Key, pflag.Lookup("{{$paramUC.GetFlagName .}}"))
     {{- end}}
   {{- end}}
   {{- if .CfgUC.HasFlag $flagUC .Cfg}}
@@ -50,13 +51,13 @@ func init() {
 {{- range .Cfg.Params}}
 
 // Get{{.CamelCaseName}} returns a {{.Name}}.
-func Get{{.CamelCaseName}}() {{.GetType}} {
-	return viper.{{.GetViperGetterName}}({{.CamelCaseLowerName}}Key)
+func Get{{.CamelCaseName}}() {{$paramUC.GetType .}} {
+	return viper.{{$paramUC.GetViperGetterName .}}({{$paramUC.CamelCaseLowerName .}}Key)
 }
 
 // Set{{.CamelCaseName}} sets a {{.Name}}.
 func Set{{.CamelCaseName}}(value {{.GetType}}) {
-	viper.Set({{.CamelCaseLowerName}}Key, value)
+	viper.Set({{$paramUC.CamelCaseLowerName .}}Key, value)
 }
 {{- end}}
 `

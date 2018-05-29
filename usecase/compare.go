@@ -40,7 +40,7 @@ func Compare(cfgPath, dest, tmplPath, testTmplPath string, isFailure, isQuiet bo
 			}
 		}
 	}
-	if err := ValidateDest(dest); err != nil {
+	if err := validateDest(dest); err != nil {
 		return err
 	}
 	// render the config

@@ -8,7 +8,13 @@ import (
 )
 
 // InitGenCfgFile generates the configuration wrapper and test file.
-func InitGenCfgFile(dest string, pNames []string, renderer domain.TemplateRenderer, writer domain.FileWriter, exist domain.FileExist) error {
+func InitGenCfgFile(args domain.InitGenCfgFileArgs) error {
+	dest := args.Dest
+	pNames := args.PNames
+	exist := args.Exist
+	renderer := args.Renderer
+	writer := args.Writer
+
 	if exist.Exist(dest) {
 		return nil
 	}

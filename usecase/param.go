@@ -1,4 +1,4 @@
-package domain
+package usecase
 
 import (
 	"fmt"
@@ -6,6 +6,8 @@ import (
 	"strings"
 
 	"github.com/serenize/snaker"
+
+	"github.com/suzuki-shunsuke/go-gencfg/domain"
 )
 
 const (
@@ -15,31 +17,18 @@ const (
 )
 
 type (
-	// Param represents a parameter.
-	Param struct {
-		Name        string      `yaml:"name"`
-		Type        string      `yaml:"type"`
-		Description string      `yaml:"description"`
-		Default     interface{} `yaml:"default"`
-		Flag        Flag        `yaml:"flag"`
-		Env         Env         `yaml:"env"`
-	}
-
-	// Global represents a global configuration.
-	Global struct {
-		Env  Env  `yaml:"env"`
-		Flag Flag `yaml:"flag"`
-	}
+	// ParamUsecase represents a parameter.
+	ParamUsecase struct{}
 )
 
 // IsSetDefault returns whether the parameter is set the default value.
-func (p Param) IsSetDefault() bool {
+func (pUC ParamUsecase) IsSetDefault(p domain.Param) bool {
 	return p.Default != nil
 }
 
 // GetDefaultStr returns a string embedded the code as default value.
-func (p Param) GetDefaultStr() string {
-	if p.GetType() == typeString {
+func (pUC ParamUsecase) GetDefaultStr(p domain.Param) string {
+	if pUC.GetType(p) == typeString {
 		if p.Default == nil {
 			return `""`
 		}
@@ -49,7 +38,7 @@ func (p Param) GetDefaultStr() string {
 }
 
 // GetFlagName returns the flag name.
-func (p Param) GetFlagName() string {
+func (pUC ParamUsecase) GetFlagName(p domain.Param) string {
 	if p.Flag.Name != nil {
 		return *p.Flag.Name
 	}
@@ -57,7 +46,7 @@ func (p Param) GetFlagName() string {
 }
 
 // GetFlagDescription returns the flag's description.
-func (p Param) GetFlagDescription() string {
+func (pUC ParamUsecase) GetFlagDescription(p domain.Param) string {
 	if p.Flag.Description != nil {
 		return *p.Flag.Description
 	}
@@ -65,7 +54,7 @@ func (p Param) GetFlagDescription() string {
 }
 
 // GetEnvName returns the environment variable name.
-func (p Param) GetEnvName() string {
+func (pUC ParamUsecase) GetEnvName(p domain.Param) string {
 	name := strings.ToUpper(p.Name)
 	if p.Env.Prefix == nil {
 		return name
@@ -74,17 +63,17 @@ func (p Param) GetEnvName() string {
 }
 
 // CamelCaseName returns the camel case parameter name.
-func (p Param) CamelCaseName() string {
+func (pUC ParamUsecase) CamelCaseName(p domain.Param) string {
 	return snaker.SnakeToCamel(p.Name)
 }
 
 // CamelCaseLowerName returns the camel case lower parameter name.
-func (p Param) CamelCaseLowerName() string {
+func (pUC ParamUsecase) CamelCaseLowerName(p domain.Param) string {
 	return snaker.SnakeToCamelLower(p.Name)
 }
 
 // GetType returns the name of parameter's data type (ex. "int", "string").
-func (p Param) GetType() string {
+func (pUC ParamUsecase) GetType(p domain.Param) string {
 	if p.Type != "" {
 		return p.Type
 	}
@@ -95,8 +84,8 @@ func (p Param) GetType() string {
 }
 
 // GetPFlagName returns the PFlag name.
-func (p Param) GetPFlagName() string {
-	switch p.GetType() {
+func (pUC ParamUsecase) GetPFlagName(p domain.Param) string {
+	switch pUC.GetType(p) {
 	case typeInt:
 		return "Int"
 	case typeString:
@@ -111,8 +100,8 @@ func (p Param) GetPFlagName() string {
 }
 
 // GetViperGetterName returns the paramter's getter name.
-func (p Param) GetViperGetterName() string {
-	switch p.GetType() {
+func (pUC ParamUsecase) GetViperGetterName(p domain.Param) string {
+	switch pUC.GetType(p) {
 	case typeInt:
 		return "GetInt"
 	case typeString:

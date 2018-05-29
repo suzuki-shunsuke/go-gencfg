@@ -10,8 +10,7 @@ import (
 	"github.com/suzuki-shunsuke/go-gencfg/domain"
 )
 
-// ValidateDest validates the generated file's extension is ".go".
-func ValidateDest(dest string) error {
+func validateDest(dest string) error {
 	ext := filepath.Ext(dest)
 	if ext != ".go" {
 		return fmt.Errorf("dest's extension is not '.go': %s", ext)
@@ -50,8 +49,7 @@ func GenCfgFile(args domain.GenCfgFileArgs) error {
 		}
 	}
 
-	// validate dest
-	if err := ValidateDest(dest); err != nil {
+	if err := validateDest(dest); err != nil {
 		return errors.Wrap(err, fmt.Sprintf("failed to validate dest: %s", dest))
 	}
 

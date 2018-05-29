@@ -64,3 +64,8 @@ func NewEnvUsecase() domain.EnvUsecase {
 func NewFlagUsecase() domain.FlagUsecase {
 	return usecase.FlagUsecase{}
 }
+
+// NewParamUsecase returns a new domain.ParamUsecase.
+func NewParamUsecase() domain.ParamUsecase {
+	return usecase.ParamUsecase{}
+}

@@ -24,6 +24,7 @@ func CmdGen(c *cli.Context) error {
 			CfgUC:        registry.NewCfgUsecase(),
 			EnvUC:        registry.NewEnvUsecase(),
 			FlagUC:       registry.NewFlagUsecase(),
+			ParamUC:      registry.NewParamUsecase(),
 		})
 	if err == nil {
 		return nil

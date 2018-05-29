@@ -4,17 +4,21 @@ import (
 	"github.com/urfave/cli"
 
 	"github.com/suzuki-shunsuke/go-gencfg/config"
+	"github.com/suzuki-shunsuke/go-gencfg/domain"
 	"github.com/suzuki-shunsuke/go-gencfg/registry"
 	"github.com/suzuki-shunsuke/go-gencfg/usecase"
 )
 
 // CmdInit is the sub command "init".
 func CmdInit(c *cli.Context) error {
-	renderer := registry.NewTemplateRenderer()
-	exist := registry.NewFileExist()
-	writer := registry.NewFileWriter()
 	err := usecase.InitGenCfgFile(
-		config.GetDestPath(c), config.GetParamNames(c), renderer, writer, exist)
+		domain.InitGenCfgFileArgs{
+			Dest:     config.GetDestPath(c),
+			PNames:   config.GetParamNames(c),
+			Renderer: registry.NewTemplateRenderer(),
+			Writer:   registry.NewFileWriter(),
+			Exist:    registry.NewFileExist(),
+		})
 	if err == nil {
 		return nil
 	}
