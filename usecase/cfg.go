@@ -29,6 +29,11 @@ func (uc CfgUsecase) GetPkgName(cfg domain.Cfg) string {
 	return "config"
 }
 
+// GetPkg returns the package path.
+func (uc CfgUsecase) GetPkg(cfg domain.Cfg) string {
+	return cfg.Pkg
+}
+
 // Update updates cfg before rendering.
 func (uc CfgUsecase) Update(cfg *domain.Cfg) {
 	if cfg == nil {

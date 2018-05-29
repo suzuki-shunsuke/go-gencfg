@@ -8,7 +8,12 @@ package {{$pkgName}}_test
 
 import (
 	"testing"
+	{{- if .CfgUC.GetPkg .Cfg}}
+
+	"{{.CfgUC.GetPkg .Cfg}}"
+	{{- else}}
 	// import your cfg package
+	{{ end -}}
 )
 
 {{- range .Cfg.Params}}

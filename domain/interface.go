@@ -60,6 +60,7 @@ type (
 	// CfgUsecase represents application logic about Cfg
 	CfgUsecase interface {
 		HasFlag(FlagUsecase, Cfg) bool
+		GetPkg(Cfg) string
 		GetPkgName(Cfg) string
 		Update(*Cfg)
 	}
