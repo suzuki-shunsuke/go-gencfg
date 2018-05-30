@@ -76,3 +76,12 @@ func TestErrTemplateRendererRender(t *testing.T) {
 		t.Fatal("ErrTemplateRenderer.Render() should return error")
 	}
 }
+
+func TestNoopStrFormatter(t *testing.T) {
+	fmtr := test.NoopStrFormatter{}
+	reader := test.NoopFileReader{}
+	executer := test.NoopCmdExecuter{}
+	if _, err := fmtr.Format("hoge", "bar", nil, reader, executer); err != nil {
+		t.Fatal(err)
+	}
+}

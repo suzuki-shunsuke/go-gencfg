@@ -37,6 +37,12 @@ type (
 		Cfg domain.Cfg
 		Err error
 	}
+
+	// NoopStrFormatter implements domain.StrFormatter .
+	NoopStrFormatter struct {
+		Str string
+		Err error
+	}
 )
 
 // Exec implements domain.CodeGenerater interface.
@@ -87,4 +93,9 @@ func (render NoopTemplateRenderer) Render(txt string, data interface{}) (string,
 // Render implements domain.TemplateRenderer interface.
 func (render ErrTemplateRenderer) Render(txt string, data interface{}) (string, error) {
 	return "", fmt.Errorf("failed to render")
+}
+
+// Format implements domain.StrFormatter interface.
+func (fmtr NoopStrFormatter) Format(dest, text string, formatters []string, reader domain.FileReader, executer domain.CmdExecuter) (string, error) {
+	return fmtr.Str, fmtr.Err
 }
