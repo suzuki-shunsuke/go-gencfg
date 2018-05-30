@@ -18,8 +18,40 @@ func validateDest(dest string) error {
 	return nil
 }
 
+// ValidateGenCfgFileArgs validates domain.GenCfgFileArgs .
+func ValidateGenCfgFileArgs(args domain.GenCfgFileArgs) error {
+	if args.Reader == nil {
+		return fmt.Errorf("GenCfgFileArgs.Reader is required")
+	}
+	if args.CfgReader == nil {
+		return fmt.Errorf("GenCfgFileArgs.CfgReader is required")
+	}
+	if args.Generater == nil {
+		return fmt.Errorf("GenCfgFileArgs.Generater is required")
+	}
+	if args.Executer == nil {
+		return fmt.Errorf("GenCfgFileArgs.Executer is required")
+	}
+	if args.CfgUC == nil {
+		return fmt.Errorf("GenCfgFileArgs.CfgUC is required")
+	}
+	if args.EnvUC == nil {
+		return fmt.Errorf("GenCfgFileArgs.EnvUC is required")
+	}
+	if args.FlagUC == nil {
+		return fmt.Errorf("GenCfgFileArgs.FlagUC is required")
+	}
+	if args.ParamUC == nil {
+		return fmt.Errorf("GenCfgFileArgs.ParamUC is required")
+	}
+	return nil
+}
+
 // GenCfgFile generates the configuration wrapper and test file.
 func GenCfgFile(args domain.GenCfgFileArgs) error {
+	if err := ValidateGenCfgFileArgs(args); err != nil {
+		return errors.Wrap(err, "failed to validate arguments")
+	}
 	reader := args.Reader
 	cfgUC := args.CfgUC
 	generater := args.Generater
