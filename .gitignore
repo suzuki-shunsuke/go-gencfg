@@ -2,3 +2,4 @@ coverage
 dummy
 gencfg.yml
 vendor
+node_modules
