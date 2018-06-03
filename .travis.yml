@@ -19,8 +19,7 @@ script:
 after_success:
 - bash script/codecov.sh
 - git status --porcelain
-- git checkout --
-- rm coverage.txt
+- git checkout -- .
 deploy:
 - provider: script
   skip_cleanup: true
