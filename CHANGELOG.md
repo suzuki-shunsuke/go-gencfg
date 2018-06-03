@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.1.5"></a>
+## [0.1.5](https://github.com/suzuki-shunsuke/go-gencfg/compare/v0.1.4...v0.1.5) (2018-06-03)
+
+
+### Bug Fixes
+
+* fix template of config_test.go ([dc171d7](https://github.com/suzuki-shunsuke/go-gencfg/commit/dc171d7))
+
+
+
 <a name="0.1.4"></a>
 ## [0.1.4](https://github.com/suzuki-shunsuke/go-gencfg/compare/v0.1.3...v0.1.4) (2018-06-03)
 
