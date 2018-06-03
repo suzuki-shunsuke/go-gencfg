@@ -13,12 +13,12 @@ install:
 - gometalinter --install
 script:
 - npm run commitlint-travis
-- bash script/fmt.sh
 - gometalinter ./...
 - bash script/codecov-test.sh
 after_success:
 - bash script/codecov.sh
 - git status --porcelain
+# mainly ignore change of package-lock.json
 - git checkout -- .
 deploy:
 - provider: script
