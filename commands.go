@@ -4,8 +4,9 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/suzuki-shunsuke/go-gencfg/command"
 	"github.com/urfave/cli"
+
+	"github.com/suzuki-shunsuke/go-gencfg/command"
 )
 
 // GlobalFlags is global flags.
