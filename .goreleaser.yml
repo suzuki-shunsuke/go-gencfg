@@ -1,7 +1,6 @@
 ---
 builds:
-- main: main.go
-  binary: gencfg
+- binary: gencfg
   env:
   - CGO_ENABLED=0
   goos:
