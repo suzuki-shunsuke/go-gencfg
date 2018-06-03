@@ -32,12 +32,12 @@ Generate the gencfg's configuration file voilerplate.
 
 ```
 $ gencfg init port
-create gencfg.yml
+create .gencfg.yml
 ```
 
 Notice that the argument `port` is your application's parameter. It is optional and you can pass the multiple parameters.
 
-The following `gencfg.yml` is generated.
+The following `.gencfg.yml` is generated.
 
 ```yaml
 ---
@@ -45,7 +45,7 @@ The following `gencfg.yml` is generated.
 dest: config/config.go
 template:
 test_template:
-global:
+default:
   env:
     bind: false
     prefix: SAMPLE_

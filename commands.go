@@ -21,7 +21,7 @@ var Commands = []cli.Command{
 		Flags: []cli.Flag{
 			cli.StringFlag{
 				Name:  "dest, d",
-				Value: "gencfg.yml",
+				Value: ".gencfg.yml",
 				Usage: "generated file path",
 			},
 		},
@@ -33,7 +33,7 @@ var Commands = []cli.Command{
 		Flags: []cli.Flag{
 			cli.StringFlag{
 				Name:  "config, c",
-				Value: "gencfg.yml",
+				Value: ".gencfg.yml",
 				Usage: "configuration file path",
 			},
 			cli.StringFlag{
@@ -57,7 +57,7 @@ var Commands = []cli.Command{
 		Flags: []cli.Flag{
 			cli.StringFlag{
 				Name:  "config, c",
-				Value: "gencfg.yml",
+				Value: ".gencfg.yml",
 				Usage: "configuration file path",
 			},
 			cli.StringFlag{

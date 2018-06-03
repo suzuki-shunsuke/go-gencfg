@@ -1,8 +1,8 @@
 package domain
 
 type (
-	// Global represents a global configuration.
-	Global struct {
+	// Default represents a default configuration.
+	Default struct {
 		Env  Env                    `yaml:"env"`
 		Flag Flag                   `yaml:"flag"`
 		Ext  map[string]interface{} `yaml:"ext"`
@@ -16,7 +16,7 @@ type (
 		PkgName          string                 `yaml:"package_name"`
 		TemplatePath     string                 `yaml:"template"`
 		TestTemplatePath string                 `yaml:"test_template"`
-		Global           Global                 `yaml:"global"`
+		Default          Default                `yaml:"default"`
 		Params           []Param                `yaml:"params"`
 		Ext              map[string]interface{} `yaml:"ext"`
 	}

@@ -1,4 +1,4 @@
-# Congiguration
+# Configuration
 
 ## dest
 
@@ -16,15 +16,15 @@ formatters:
 
 the target file path is added to each command.
 
-## global
+## default
 
-`global` defines the global configuration.
-If each param's configuration overwrites the global configuration.
-The `global` configuration is optional.
+`default` defines the parameter's default configuration.
+If each param's configuration overwrites the default configuration.
+The `default` configuration is optional.
 
-* global.env.bind
-* global.env.prefix
-* global.flag.bind
+* default.env.bind
+* default.env.prefix
+* default.flag.bind
 
 ## params[].name
 

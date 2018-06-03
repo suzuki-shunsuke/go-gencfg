@@ -11,7 +11,7 @@ template:
 test_template:
 formatters:
 - gofmt -l -s -w
-global:
+default:
   env:
     bind: false
     prefix: SAMPLE_

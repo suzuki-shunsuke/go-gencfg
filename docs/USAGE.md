@@ -34,7 +34,7 @@ USAGE:
    commands init [command options] [arguments...]
 
 OPTIONS:
-   --dest value, -d value  generated file path (default: "gencfg.yml")
+   --dest value, -d value  generated file path (default: ".gencfg.yml")
 ```
 
 ```
@@ -46,8 +46,8 @@ USAGE:
    commands gen [command options] [arguments...]
 
 OPTIONS:
-   --cfg value, -c value       configuration file path (default: "gencfg.yml")
-   --dest value, -d value      generated file path (default: "cfg/cfg.go")
+   --config value, -c value       configuration file path (default: ".gencfg.yml")
+   --dest value, -d value      generated file path (default: "config/config.go")
    --template value, -t value  template file path
    --test-template value       test template file path
 ```
@@ -61,8 +61,8 @@ USAGE:
    commands compare [command options] [arguments...]
 
 OPTIONS:
-   --cfg value, -c value       configuration file path (default: "gencfg.yml")
-   --dest value, -d value      generated file path (default: "cfg/cfg.go")
+   --config value, -c value       configuration file path (default: ".gencfg.yml")
+   --dest value, -d value      generated file path (default: "config/config.go")
    --template value, -t value  template file path
    --failure, -f               exit with non 0 if diff exists
    --quiet, -q                 diff is not shown. --failure option is enabled automatically

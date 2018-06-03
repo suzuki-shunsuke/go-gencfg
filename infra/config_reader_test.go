@@ -15,7 +15,7 @@ const (
 dest: config/config.go
 template:
 test_template:
-global:
+default:
   env:
     bind: false
     prefix: SAMPLE_

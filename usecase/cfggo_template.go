@@ -2,7 +2,7 @@ package usecase
 
 // DefaultCfgTmpl is the default template of the generated wrapper code.
 const DefaultCfgTmpl = `
-{{ $global := .Cfg.Global -}}
+{{ $default := .Cfg.Default -}}
 {{ $envUC := .EnvUC -}}
 {{ $flagUC := .FlagUC -}}
 {{ $paramUC := .ParamUC -}}
@@ -26,15 +26,15 @@ const (
 func init() {
 {{- if .Cfg.Params}}
   {{- range .Cfg.Params}}
-    {{- if $envUC.IsBind .Env $global.Env.Bind }}
-	viper.BindEnv({{$paramUC.CamelCaseLowerName .}}Key, "{{$envUC.GetName .Env .Name $global.Env.Prefix}}")
+    {{- if $envUC.IsBind .Env $default.Env.Bind }}
+	viper.BindEnv({{$paramUC.CamelCaseLowerName .}}Key, "{{$envUC.GetName .Env .Name $default.Env.Prefix}}")
     {{- end}}
   {{- end}}
   {{- range .Cfg.Params}}
     {{- if $paramUC.IsSetDefault . }}
 	viper.SetDefault({{$paramUC.CamelCaseLowerName .}}Key, {{ $paramUC.GetDefaultStr .}})
     {{- end}}
-    {{- if $flagUC.IsBind .Flag $global.Flag.Bind }}
+    {{- if $flagUC.IsBind .Flag $default.Flag.Bind }}
 		  {{- if .Flag.Short}}
 	pflag.{{$paramUC.GetPFlagName .}}P("{{$paramUC.GetFlagName .}}", "{{.Flag.Short}}", {{$paramUC.GetDefaultStr .}}, "{{$paramUC.GetFlagDescription .}}")
 		  {{- else}}
