@@ -1,5 +1,13 @@
 # go-gencfg
 
+[![GoDoc](http://img.shields.io/badge/go-documentation-blue.svg?style=flat-square)](http://godoc.org/github.com/suzuki-shunsuke/go-gencfg)
+[![Build Status](https://travis-ci.org/suzuki-shunsuke/go-gencfg.svg?branch=master)](https://travis-ci.org/suzuki-shunsuke/go-gencfg)
+[![codecov](https://codecov.io/gh/suzuki-shunsuke/go-gencfg/branch/master/graph/badge.svg)](https://codecov.io/gh/suzuki-shunsuke/go-gencfg)
+[![Go Report Card](https://goreportcard.com/badge/github.com/suzuki-shunsuke/go-gencfg)](https://goreportcard.com/report/github.com/suzuki-shunsuke/go-gencfg)
+[![GitHub last commit](https://img.shields.io/github/last-commit/suzuki-shunsuke/go-gencfg.svg)](https://github.com/suzuki-shunsuke/go-gencfg)
+[![GitHub tag](https://img.shields.io/github/tag/suzuki-shunsuke/go-gencfg.svg)](https://github.com/suzuki-shunsuke/go-gencfg/releases)
+[![License](http://img.shields.io/badge/license-mit-blue.svg?style=flat-square)](https://raw.githubusercontent.com/suzuki-shunsuke/go-gencfg/master/LICENSE)
+
 cli tool to generate code for the application specific configuration.
 
 ## Getting Started
