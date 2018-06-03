@@ -18,7 +18,9 @@ script:
 - bash script/codecov-test.sh
 after_success:
 - bash script/codecov.sh
-- git checkout -- package-lock.json
+- git status --porcelain
+- git checkout --
+- rm coverage.txt
 deploy:
 - provider: script
   skip_cleanup: true
