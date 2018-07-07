@@ -4,47 +4,42 @@ package usecase
 const GenCfgTmpl = `
 ---
 # https://github.com/suzuki-shunsuke/go-gencfg
+# https://github.com/suzuki-shunsuke/go-gencfg/blob/master/docs/CONFIGURATION.md
 dest: config/config.go
 package_name:
 package:
-template:
-test_template:
+template: .gencfg_config.tmpl
 formatters:
 - gofmt -l -s -w
 default:
   env:
     bind: false
-    prefix: SAMPLE_
   flag:
     bind: false
 params:
 {{- range .}}
 - name: {{.}}
   type: string
-  description:
   default:
   env:
     name:
-    prefix: SAMPLE_
     bind: false
   flag:
     name:
     description:
     short:
-    bind: true
+    bind: false
 {{- else}}
 - name:
   type: string
-  description:
   default:
   env:
     name:
-    prefix: SAMPLE_
     bind: false
   flag:
     name:
     description:
     short:
-    bind: true
+    bind: false
 {{end}}
 `

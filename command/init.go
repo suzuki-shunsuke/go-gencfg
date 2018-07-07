@@ -13,7 +13,8 @@ import (
 func CmdInit(c *cli.Context) error {
 	err := usecase.InitGenCfgFile(
 		domain.InitGenCfgFileArgs{
-			Dest:     config.GetDestPath(c),
+			Dest:     config.GetCfgPath(c),
+			TmplDest: config.GetTemplatePath(c),
 			PNames:   config.GetParamNames(c),
 			Renderer: registry.NewTemplateRenderer(),
 			Writer:   registry.NewFileWriter(),
