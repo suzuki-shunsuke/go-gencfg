@@ -9,7 +9,7 @@ USAGE:
    commands [global options] command [command options] [arguments...]
 
 VERSION:
-   0.2.0
+   0.2.1
 
 AUTHOR:
    suzuki-shunsuke https://github.com/suzuki-shunsuke
