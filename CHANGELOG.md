@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.2.0"></a>
+# [0.2.0](https://github.com/suzuki-shunsuke/go-gencfg/compare/v0.1.5...v0.2.0) (2018-07-07)
+
+
+### Features
+
+* don't create test and create template at init ([4460300](https://github.com/suzuki-shunsuke/go-gencfg/commit/4460300))
+
+
+### BREAKING CHANGES
+
+* Don't generate test file. Please use https://github.com/suzuki-shunsuke/gria
+
+
+
 <a name="0.1.5"></a>
 ## [0.1.5](https://github.com/suzuki-shunsuke/go-gencfg/compare/v0.1.4...v0.1.5) (2018-06-03)
 
