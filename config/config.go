@@ -5,12 +5,11 @@ import (
 )
 
 const (
-	cfgPathKey      = "config"
-	destPathKey     = "dest"
-	failureKey      = "failure"
-	quietKey        = "quiet"
-	templateKey     = "template"
-	testTemplateKey = "test-template"
+	cfgPathKey  = "config"
+	destPathKey = "dest"
+	failureKey  = "failure"
+	quietKey    = "quiet"
+	templateKey = "template"
 )
 
 // GetCfgPath returns the configuration file path.
@@ -26,11 +25,6 @@ func GetDestPath(c domain.CLIContext) string {
 // GetTemplatePath returns the template file path.
 func GetTemplatePath(c domain.CLIContext) string {
 	return c.String(templateKey)
-}
-
-// GetTestTemplatePath returns the test template file path.
-func GetTestTemplatePath(c domain.CLIContext) string {
-	return c.String(testTemplateKey)
 }
 
 // GetParamNames returns the param names.

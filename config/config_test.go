@@ -48,14 +48,6 @@ func TestGetTemplatePath(t *testing.T) {
 	}
 }
 
-func TestGetTestTemplatePath(t *testing.T) {
-	ctx := CLIContext{}
-	exp := "test-template"
-	if act := config.GetTestTemplatePath(ctx); act != exp {
-		t.Fatalf(`GetTestTemplatePath() = "%s", wanted "%s"`, act, exp)
-	}
-}
-
 func TestGetParamNames(t *testing.T) {
 	ctx := CLIContext{}
 	if act := config.GetParamNames(ctx); len(act) != 0 {

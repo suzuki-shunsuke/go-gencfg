@@ -9,7 +9,7 @@ USAGE:
    commands [global options] command [command options] [arguments...]
 
 VERSION:
-   0.1.0
+   0.2.0
 
 AUTHOR:
    suzuki-shunsuke https://github.com/suzuki-shunsuke
@@ -34,7 +34,8 @@ USAGE:
    commands init [command options] [arguments...]
 
 OPTIONS:
-   --dest value, -d value  generated file path (default: ".gencfg.yml")
+   --config value, -c value    generated configuration file path (default: ".gencfg.yml")
+   --template value, -t value  generated template file path (default: ".gencfg_config.tmpl")
 ```
 
 ```
@@ -49,7 +50,6 @@ OPTIONS:
    --config value, -c value       configuration file path (default: ".gencfg.yml")
    --dest value, -d value      generated file path (default: "config/config.go")
    --template value, -t value  template file path
-   --test-template value       test template file path
 ```
 
 ```

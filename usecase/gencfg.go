@@ -58,7 +58,6 @@ func GenCfgFile(args domain.GenCfgFileArgs) error {
 	executer := args.Executer
 	dest := args.Dest
 	tmplPath := args.TmplPath
-	testTmplPath := args.TestTmplPath
 
 	// read and parse the config from file
 	config, err := args.CfgReader.Read(args.Src)
@@ -105,25 +104,6 @@ func GenCfgFile(args domain.GenCfgFileArgs) error {
 		}
 	}
 
-	// set test code template
-	cfgTestTmpl := DefaultCfgTestTmpl
-	if testTmplPath != "" {
-		cfgTestTmpl, err = reader.Read(testTmplPath)
-		if err != nil {
-			return errors.Wrap(
-				err, fmt.Sprintf("failed to read the template file: %s", testTmplPath))
-		}
-	} else {
-		if config.TestTemplatePath != "" {
-			cfgTestTmpl, err = reader.Read(config.TestTemplatePath)
-			if err != nil {
-				return errors.Wrap(
-					err, fmt.Sprintf(
-						"failed to read the template file: %s", config.TestTemplatePath))
-			}
-		}
-	}
-
 	// generate code file
 	if err := generater.Exec(dest, strings.Trim(cfgTmpl, "\n"), td); err != nil {
 		return errors.Wrap(err, fmt.Sprintf("failed to generate code: %s", dest))
@@ -140,21 +120,5 @@ func GenCfgFile(args domain.GenCfgFileArgs) error {
 		}
 	}
 
-	// generate test code file
-	testPath := fmt.Sprintf("%s_test.go", dest[:len(dest)-3])
-	if err := generater.Exec(testPath, strings.Trim(cfgTestTmpl, "\n"), td); err != nil {
-		return errors.Wrap(err, fmt.Sprintf("failed to generate code: %s", testPath))
-	}
-
-	// format test code file by formatters
-	if len(config.Formatters) != 0 {
-		for _, formatter := range config.Formatters {
-			if err := executer.Exec(formatter, testPath); err != nil {
-				return errors.Wrap(
-					err, fmt.Sprintf(
-						"failed to format code by command: %s %s", formatter, testPath))
-			}
-		}
-	}
 	return nil
 }

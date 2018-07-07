@@ -13,18 +13,17 @@ import (
 func CmdGen(c *cli.Context) error {
 	err := usecase.GenCfgFile(
 		domain.GenCfgFileArgs{
-			Src:          config.GetCfgPath(c),
-			Dest:         config.GetDestPath(c),
-			TmplPath:     config.GetTemplatePath(c),
-			TestTmplPath: config.GetTestTemplatePath(c),
-			Reader:       registry.NewFileReader(),
-			CfgReader:    registry.NewCfgReader(),
-			Generater:    registry.NewCodeGenerater(),
-			Executer:     registry.NewCmdExecuter(),
-			CfgUC:        registry.NewCfgUsecase(),
-			EnvUC:        registry.NewEnvUsecase(),
-			FlagUC:       registry.NewFlagUsecase(),
-			ParamUC:      registry.NewParamUsecase(),
+			Src:       config.GetCfgPath(c),
+			Dest:      config.GetDestPath(c),
+			TmplPath:  config.GetTemplatePath(c),
+			Reader:    registry.NewFileReader(),
+			CfgReader: registry.NewCfgReader(),
+			Generater: registry.NewCodeGenerater(),
+			Executer:  registry.NewCmdExecuter(),
+			CfgUC:     registry.NewCfgUsecase(),
+			EnvUC:     registry.NewEnvUsecase(),
+			FlagUC:    registry.NewFlagUsecase(),
+			ParamUC:   registry.NewParamUsecase(),
 		})
 	if err == nil {
 		return nil

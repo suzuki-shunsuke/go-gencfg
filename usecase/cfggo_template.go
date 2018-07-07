@@ -11,7 +11,9 @@ const DefaultCfgTmpl = `
 package {{$pkgName}}
 
 import (
+  {{- if .CfgUC.HasFlag $flagUC .Cfg}}
 	"github.com/spf13/pflag"
+  {{- end}}
 	"github.com/spf13/viper"
 )
 

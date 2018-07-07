@@ -20,9 +20,14 @@ var Commands = []cli.Command{
 		Action: command.CmdInit,
 		Flags: []cli.Flag{
 			cli.StringFlag{
-				Name:  "dest, d",
+				Name:  "config, c",
 				Value: ".gencfg.yml",
-				Usage: "generated file path",
+				Usage: "generated configuration file path",
+			},
+			cli.StringFlag{
+				Name:  "template, t",
+				Value: ".gencfg_config.tmpl",
+				Usage: "generated template file path",
 			},
 		},
 	},
@@ -43,10 +48,6 @@ var Commands = []cli.Command{
 			cli.StringFlag{
 				Name:  "template, t",
 				Usage: "template file path",
-			},
-			cli.StringFlag{
-				Name:  "test-template",
-				Usage: "test template file path",
 			},
 		},
 	},

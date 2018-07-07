@@ -9,7 +9,7 @@ import (
 func main() {
 	app := cli.NewApp()
 	app.Name = "gencfg"
-	app.Version = "0.1.5"
+	app.Version = "0.2.0"
 	app.Author = "suzuki-shunsuke https://github.com/suzuki-shunsuke"
 	app.Usage = "generate code for the application specific configuration"
 

@@ -1,6 +1,7 @@
 coverage
 dummy
 .gencfg.yml
+.gencfg_config.tmpl
 vendor
 node_modules
 coverage.txt
