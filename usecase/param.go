@@ -14,6 +14,7 @@ const (
 	typeString  = "string"
 	typeInt     = "int"
 	typeFloat64 = "float64"
+	typeBool    = "bool"
 )
 
 type (
@@ -28,10 +29,19 @@ func (pUC ParamUsecase) IsSetDefault(p domain.Param) bool {
 
 // GetDefaultStr returns a string embedded the code as default value.
 func (pUC ParamUsecase) GetDefaultStr(p domain.Param) string {
-	if pUC.GetType(p) == typeString {
-		if p.Default == nil {
+	if p.Default == nil {
+		switch pUC.GetType(p) {
+		case typeString:
 			return `""`
+		case typeInt:
+			return "0"
+		case typeFloat64:
+			return "0.0"
+		case typeBool:
+			return "false"
 		}
+	}
+	if pUC.GetType(p) == typeString {
 		return fmt.Sprintf(`"%s"`, p.Default)
 	}
 	return fmt.Sprintf("%v", p.Default)
@@ -90,7 +100,7 @@ func (pUC ParamUsecase) GetPFlagName(p domain.Param) string {
 		return "Int"
 	case typeString:
 		return "String"
-	case "bool":
+	case typeBool:
 		return "Bool"
 	case typeFloat64:
 		return "Float64"
@@ -106,7 +116,7 @@ func (pUC ParamUsecase) GetViperGetterName(p domain.Param) string {
 		return "GetInt"
 	case typeString:
 		return "GetString"
-	case "bool":
+	case typeBool:
 		return "GetBool"
 	case typeFloat64:
 		return "GetFloat64"
