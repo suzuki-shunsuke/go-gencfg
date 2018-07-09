@@ -74,11 +74,19 @@ func (pUC ParamUsecase) GetEnvName(p domain.Param) string {
 
 // CamelCaseName returns the camel case parameter name.
 func (pUC ParamUsecase) CamelCaseName(p domain.Param) string {
+	if p.CamelCaseName != "" {
+		return p.CamelCaseName
+	}
 	return snaker.SnakeToCamel(p.Name)
 }
 
 // CamelCaseLowerName returns the camel case lower parameter name.
 func (pUC ParamUsecase) CamelCaseLowerName(p domain.Param) string {
+	if p.CamelCaseName != "" {
+		return fmt.Sprintf(
+			"%s%s", strings.ToLower(p.CamelCaseName[0:1]),
+			p.CamelCaseName[1:])
+	}
 	return snaker.SnakeToCamelLower(p.Name)
 }
 
