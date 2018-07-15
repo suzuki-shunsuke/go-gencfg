@@ -48,12 +48,13 @@ type (
 
 	// Param represents a parameter.
 	Param struct {
-		Name        string                 `yaml:"name"`
-		Type        string                 `yaml:"type"`
-		Description string                 `yaml:"description"`
-		Default     interface{}            `yaml:"default"`
-		Flag        Flag                   `yaml:"flag"`
-		Env         Env                    `yaml:"env"`
-		Ext         map[string]interface{} `yaml:"ext"`
+		Name          string                 `yaml:"name"`
+		CamelCaseName string                 `yaml:"camel_case_name"`
+		Type          string                 `yaml:"type"`
+		Description   string                 `yaml:"description"`
+		Default       interface{}            `yaml:"default"`
+		Flag          Flag                   `yaml:"flag"`
+		Env           Env                    `yaml:"env"`
+		Ext           map[string]interface{} `yaml:"ext"`
 	}
 )
