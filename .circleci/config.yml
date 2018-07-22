@@ -14,3 +14,11 @@ jobs:
     - run: bash script/codecov-test.sh
     - run: bash <(curl -s https://codecov.io/bash)
     - run: bash script/release.sh
+workflows:
+  version: 2
+  build:
+    jobs:
+    - build:
+        filters:
+          tags:
+            only: /.*/
