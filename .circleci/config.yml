@@ -32,7 +32,10 @@ workflows:
   version: 2
   build_and_upload:
     jobs:
-    - build
+    - build:
+        filters:
+          tags:
+            only: /.*/
     - upload:
         requires:
         - build
