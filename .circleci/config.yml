@@ -8,7 +8,8 @@ jobs:
     steps:
     - checkout
     - run: npm i
-    - run: bash commitlint-circleci.sh
+    - run: go get -t ./...
+    - run: bash script/commitlint-circleci.sh
     - run: gometalinter ./...
     - run: bash script/codecov-test.sh
     - run: bash <(curl -s https://codecov.io/bash)
@@ -23,9 +24,9 @@ jobs:
     - run: curl -sL https://git.io/goreleaser | bash
 workflows:
   version: 2
-  build-and-upload:
+  build_and_upload:
     jobs:
-    - build:
+    - build
     - upload:
         requires:
         - build
