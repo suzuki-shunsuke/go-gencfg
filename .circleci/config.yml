@@ -8,27 +8,36 @@ jobs:
     steps:
     - checkout
     - run: npm i
-    - run: bash commitlint-circleci.sh
+    - run: go get -t ./...
+    - run: bash script/commitlint-circleci.sh
     - run: gometalinter ./...
     - run: bash script/codecov-test.sh
     - run: bash <(curl -s https://codecov.io/bash)
+    - persist_to_workspace:
+        root: &persist /go
+        paths:
+        - ""
   upload:
     docker:
     - image: *image
     working_directory: *wd
     steps:
+    - attach_workspace:
+        at: *persist
     - run: git status --porcelain
     # mainly ignore change of package-lock.json
     - run: git checkout -- .
     - run: curl -sL https://git.io/goreleaser | bash
 workflows:
   version: 2
-  build-and-upload:
+  build_and_upload:
     jobs:
-    - build:
+    - build
     - upload:
         requires:
         - build
         filters:
+          branches:
+            ignore: /.*/
           tags:
             only: /.*/

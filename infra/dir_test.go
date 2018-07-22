@@ -1,14 +1,22 @@
 package infra_test
 
 import (
+	"io/ioutil"
+	"os"
+	"path/filepath"
 	"testing"
 
 	"github.com/suzuki-shunsuke/go-gencfg/infra"
 )
 
 func TestDirMakerMake(t *testing.T) {
+	dir, err := ioutil.TempDir("", "")
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer os.RemoveAll(dir)
 	maker := infra.DirMaker{}
-	if err := maker.Make("/root/hoge"); err == nil {
-		t.Fatalf("mkdir /root/hoge should not be permitted")
+	if err := maker.Make(filepath.Join(dir, "hoge")); err != nil {
+		t.Fatal(err)
 	}
 }
