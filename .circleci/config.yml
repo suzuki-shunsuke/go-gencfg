@@ -13,11 +13,17 @@ jobs:
     - run: gometalinter ./...
     - run: bash script/codecov-test.sh
     - run: bash <(curl -s https://codecov.io/bash)
+    - persist_to_workspace:
+        root: &persist /go
+        paths:
+        - ""
   upload:
     docker:
     - image: *image
     working_directory: *wd
     steps:
+    - attach_workspace:
+        at: *persist
     - run: git status --porcelain
     # mainly ignore change of package-lock.json
     - run: git checkout -- .
@@ -31,5 +37,7 @@ workflows:
         requires:
         - build
         filters:
+          branches:
+            ignore: /.*/
           tags:
             only: /.*/
