@@ -1,0 +1,34 @@
+---
+version: 2
+jobs:
+  build:
+    docker:
+    - image: &image suzukishunsuke/go-ci:0.1.0-0
+    working_directory: &wd /go/src/github.com/suzuki-shunsuke/go-gencfg
+    steps:
+    - checkout
+    - run: npm i
+    - run: bash commitlint-circleci.sh
+    - run: gometalinter ./...
+    - run: bash script/codecov-test.sh
+    - run: bash <(curl -s https://codecov.io/bash)
+  upload:
+    docker:
+    - image: *image
+    working_directory: *wd
+    steps:
+    - run: git status --porcelain
+    # mainly ignore change of package-lock.json
+    - run: git checkout -- .
+    - run: curl -sL https://git.io/goreleaser | bash
+workflows:
+  version: 2
+  build-and-upload:
+    jobs:
+    - build:
+    - upload:
+        requires:
+        - build
+        filters:
+          tags:
+            only: /.*/
