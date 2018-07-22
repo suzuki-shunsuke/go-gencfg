@@ -4,7 +4,7 @@ jobs:
   build:
     docker:
     - image: &image suzukishunsuke/go-ci:0.1.0-0
-    working_directory: &wd /go/src/github.com/suzuki-shunsuke/go-gencfg
+    working_directory: /go/src/github.com/suzuki-shunsuke/go-gencfg
     steps:
     - checkout
     - run: npm i
@@ -13,34 +13,4 @@ jobs:
     - run: gometalinter ./...
     - run: bash script/codecov-test.sh
     - run: bash <(curl -s https://codecov.io/bash)
-    - persist_to_workspace:
-        root: &persist /go
-        paths:
-        - ""
-  upload:
-    docker:
-    - image: *image
-    working_directory: *wd
-    steps:
-    - attach_workspace:
-        at: *persist
-    - run: git status --porcelain
-    # mainly ignore change of package-lock.json
-    - run: git checkout -- .
-    - run: curl -sL https://git.io/goreleaser | bash
-workflows:
-  version: 2
-  build_and_upload:
-    jobs:
-    - build:
-        filters:
-          tags:
-            only: /.*/
-    - upload:
-        requires:
-        - build
-        filters:
-          branches:
-            ignore: /.*/
-          tags:
-            only: /.*/
+    - run: bash script/release.sh
