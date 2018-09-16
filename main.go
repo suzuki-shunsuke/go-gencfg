@@ -4,12 +4,14 @@ import (
 	"os"
 
 	"github.com/urfave/cli"
+
+	"github.com/suzuki-shunsuke/go-gencfg/domain"
 )
 
 func main() {
 	app := cli.NewApp()
 	app.Name = "gencfg"
-	app.Version = "0.2.2"
+	app.Version = domain.Version
 	app.Author = "suzuki-shunsuke https://github.com/suzuki-shunsuke"
 	app.Usage = "generate code for the application specific configuration"
 
