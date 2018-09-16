@@ -10,12 +10,10 @@
 
 cli tool to generate code for the application specific configuration.
 
-## Getting Started
-
-Intsall
+## Install
 
 ```
-$ go get -d github.com/suzuki-shunsuke/go-gencfg
+$ go get -u github.com/suzuki-shunsuke/go-gencfg
 ```
 
 or Download a binary from the [release page](https://github.com/suzuki-shunsuke/go-gencfg/releases).
@@ -27,23 +25,21 @@ $ gencfg -v
 gencfg version 0.1.0
 ```
 
-Assume you are in the application's root directory and the application uses [github.com/spf13/viper](https://github.com/spf13/viper).
-Generate the gencfg's configuration file voilerplate.
+## Getting Started
+
+1. Generate configuration file.
 
 ```
-$ gencfg init port
+$ gencfg init
 create .gencfg.yml
 create .gencfg_config.tmpl
 ```
 
-Note that the argument `port` is your application's parameter. It is optional and you can pass the multiple parameters.
+2. Edit configuration file according to the application.
 
-The following `.gencfg.yml` and `.gencfg_config.tmpl` are generated.
+Here is the example.
 
 ```yaml
----
-# https://github.com/suzuki-shunsuke/go-gencfg
-# https://github.com/suzuki-shunsuke/go-gencfg/blob/master/docs/CONFIGURATION.md
 dest: config/config.go
 package_name:
 package:
@@ -52,132 +48,57 @@ formatters:
 - gofmt -l -s -w
 default:
   env:
-    bind: false
+    bind: true
   flag:
     bind: false
 params:
-- name: port
+- name: user
   type: string
-  default:
-  env:
-    name:
-    bind: false
-  flag:
-    name:
-    description:
-    short:
-    bind: false
+- name: port
+  type: int
+  default: 6000
+- name: access_token
+  type: string
 ```
 
-```
-{{ $default := .Cfg.Default -}}
-{{ $envUC := .EnvUC -}}
-{{ $flagUC := .FlagUC -}}
-{{ $paramUC := .ParamUC -}}
-{{ $pkgName := .CfgUC.GetPkgName .Cfg -}}
-// Package {{$pkgName}} wraps viper for the application
-package {{$pkgName}}
-
-import (
-  {{- if .CfgUC.HasFlag $flagUC .Cfg}}
-	"github.com/spf13/pflag"
-  {{- end}}
-	"github.com/spf13/viper"
-)
-
-{{if .Cfg.Params -}}
-const (
-{{- range .Cfg.Params}}
-	{{$paramUC.CamelCaseLowerName .}}Key = "{{.Name}}"
-{{- end}}
-)
-{{- end}}
-
-func init() {
-{{- if .Cfg.Params}}
-  {{- range .Cfg.Params}}
-    {{- if $envUC.IsBind .Env $default.Env.Bind }}
-	viper.BindEnv({{$paramUC.CamelCaseLowerName .}}Key, "{{$envUC.GetName .Env .Name $default.Env.Prefix}}")
-    {{- end}}
-  {{- end}}
-  {{- range .Cfg.Params}}
-    {{- if $paramUC.IsSetDefault . }}
-	viper.SetDefault({{$paramUC.CamelCaseLowerName .}}Key, {{ $paramUC.GetDefaultStr .}})
-    {{- end}}
-    {{- if $flagUC.IsBind .Flag $default.Flag.Bind }}
-		  {{- if .Flag.Short}}
-	pflag.{{$paramUC.GetPFlagName .}}P("{{$paramUC.GetFlagName .}}", "{{.Flag.Short}}", {{$paramUC.GetDefaultStr .}}, "{{$paramUC.GetFlagDescription .}}")
-		  {{- else}}
-	pflag.{{$paramUC.GetPFlagName .}}("{{$paramUC.GetFlagName .}}", {{$paramUC.GetDefaultStr .}}, "{{$paramUC.GetFlagDescription .}}")
-		  {{- end}}
-	viper.BindPFlag({{$paramUC.CamelCaseLowerName .}}Key, pflag.Lookup("{{$paramUC.GetFlagName .}}"))
-    {{- end}}
-  {{- end}}
-  {{- if .CfgUC.HasFlag $flagUC .Cfg}}
-	pflag.Parse()
-  {{- end}}
-{{- end}}
-}
-
-{{- range .Cfg.Params}}
-
-// Get{{$paramUC.CamelCaseName .}} returns a {{.Name}}.
-func Get{{$paramUC.CamelCaseName .}}() {{$paramUC.GetType .}} {
-	return viper.{{$paramUC.GetViperGetterName .}}({{$paramUC.CamelCaseLowerName .}}Key)
-}
-
-// Set{{$paramUC.CamelCaseName .}} sets a {{.Name}}.
-func Set{{$paramUC.CamelCaseName .}}(value {{$paramUC.GetType .}}) {
-	viper.Set({{$paramUC.CamelCaseLowerName .}}Key, value)
-}
-{{- end}}
-```
-
-Edit the files as you like.
-Then generate the code which wraps viper for your application.
+3. Generate code.
 
 ```
 $ gencfg gen
-create config
-create config/config.go
-gofmt -l -s -w config/config.go
 ```
 
-See `config/config.go`.
+4. The end. You can manage configuration with generated code.
 
-```golang
-// Package config wraps viper for the application
-package config
+Use global configuration.
 
-import (
-	"github.com/spf13/viper"
-)
-
-const (
-	portKey = "port"
-)
-
-func init() {
-}
-
-// GetPort returns a port.
-func GetPort() string {
-	return viper.GetString(portKey)
-}
-
-// SetPort sets a port.
-func SetPort(value string) {
-	viper.Set(portKey, value)
-}
+```go
+config.GetUser()
+config.SetUser("foo")
 ```
 
-Then in the application you can get the port number as the following.
+Or use local configuration.
 
-```golang
-config.GetPort()
+```go
+cfg := config.New()
+cfg.GetUser()
+cfg.SetUser("foo")
 ```
 
-You can change the generated file path and the template of the generated file by the configuration file and command line parameters.
+When you update the configuration file `.gencfg.yml`, please run `gencfg gen` again.
+
+## Why we use this tool?
+
+1. We can manage the application configuration items with YAML. New developers can understand what the application configuration items is by YAML.
+2. We don't have to write obvious code. We can focus on the application logic.
+3. We can access configuration with better interfaces. viper specifies the configuration item by string key. This may cause the typo of the key. The typo of key doesn't raise compile error and probably we can't find the typo even with linter. On the other hand, typo of method name raise the compile error so we can find the typo easily.
+
+```go
+viper.GetString("user")
+```
+
+```go
+config.GetUser()
+```
 
 ## Usage
 
