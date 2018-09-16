@@ -25,16 +25,34 @@ const (
 )
 {{- end}}
 
+type (
+	// Config manages configuration.
+	Config interface {
+{{- range .Cfg.Params}}
+		Get{{$paramUC.CamelCaseName .}}() {{$paramUC.GetType .}} 
+		Set{{$paramUC.CamelCaseName .}}(value {{$paramUC.GetType .}}) 
+{{- end}}
+	}
+
+	config struct {
+		viper *viper.Viper
+	}
+)
+
 func init() {
+	initViper(viper.GetViper())
+}
+
+func initViper(v *viper.Viper) {
 {{- if .Cfg.Params}}
   {{- range .Cfg.Params}}
     {{- if $envUC.IsBind .Env $default.Env.Bind }}
-	viper.BindEnv({{$paramUC.CamelCaseLowerName .}}Key, "{{$envUC.GetName .Env .Name $default.Env.Prefix}}")
+	v.BindEnv({{$paramUC.CamelCaseLowerName .}}Key, "{{$envUC.GetName .Env .Name $default.Env.Prefix}}")
     {{- end}}
   {{- end}}
   {{- range .Cfg.Params}}
     {{- if $paramUC.IsSetDefault . }}
-	viper.SetDefault({{$paramUC.CamelCaseLowerName .}}Key, {{ $paramUC.GetDefaultStr .}})
+	v.SetDefault({{$paramUC.CamelCaseLowerName .}}Key, {{ $paramUC.GetDefaultStr .}})
     {{- end}}
     {{- if $flagUC.IsBind .Flag $default.Flag.Bind }}
 		  {{- if .Flag.Short}}
@@ -42,7 +60,7 @@ func init() {
 		  {{- else}}
 	pflag.{{$paramUC.GetPFlagName .}}("{{$paramUC.GetFlagName .}}", {{$paramUC.GetDefaultStr .}}, "{{$paramUC.GetFlagDescription .}}")
 		  {{- end}}
-	viper.BindPFlag({{$paramUC.CamelCaseLowerName .}}Key, pflag.Lookup("{{$paramUC.GetFlagName .}}"))
+	v.BindPFlag({{$paramUC.CamelCaseLowerName .}}Key, pflag.Lookup("{{$paramUC.GetFlagName .}}"))
     {{- end}}
   {{- end}}
   {{- if .CfgUC.HasFlag $flagUC .Cfg}}
@@ -50,6 +68,28 @@ func init() {
   {{- end}}
 {{- end}}
 }
+
+// New returns an initialized configuration.
+func New() Config {
+	cfg := &config{
+		viper: viper.New(),
+	}
+	initViper(cfg.viper)
+	return cfg
+}
+
+{{- range .Cfg.Params}}
+
+// Get{{$paramUC.CamelCaseName .}} returns a {{.Name}}.
+func (cfg *config) Get{{$paramUC.CamelCaseName .}}() {{$paramUC.GetType .}} {
+	return cfg.viper.{{$paramUC.GetViperGetterName .}}({{$paramUC.CamelCaseLowerName .}}Key)
+}
+
+// Set{{$paramUC.CamelCaseName .}} sets a {{.Name}}.
+func (cfg *config) Set{{$paramUC.CamelCaseName .}}(value {{$paramUC.GetType .}}) {
+	cfg.viper.Set({{$paramUC.CamelCaseLowerName .}}Key, value)
+}
+{{- end}}
 
 {{- range .Cfg.Params}}
 
