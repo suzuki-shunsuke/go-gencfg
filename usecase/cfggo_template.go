@@ -11,6 +11,9 @@ const DefaultCfgTmpl = `
 package {{$pkgName}}
 
 import (
+  {{- if .Cfg.CfgFilePath }}
+	"github.com/pkg/errors"
+  {{- end}}
   {{- if .CfgUC.HasFlag $flagUC .Cfg}}
 	"github.com/spf13/pflag"
   {{- end}}
@@ -39,11 +42,7 @@ type (
 	}
 )
 
-func init() {
-	initViper(viper.GetViper())
-}
-
-func initViper(v *viper.Viper) {
+func initViper(v *viper.Viper) error {
 {{- if .Cfg.Params}}
   {{- range .Cfg.Params}}
     {{- if $envUC.IsBind .Env $default.Env.Bind }}
@@ -67,15 +66,28 @@ func initViper(v *viper.Viper) {
 	pflag.Parse()
   {{- end}}
 {{- end}}
+{{- if .Cfg.CfgFilePath }}
+	v.SetConfigFile("{{.Cfg.CfgFilePath}}")
+	if err := v.ReadInConfig(); err != nil {
+		return errors.Wrap(err, "failed to read config in file")
+	}
+	return nil
+{{ else }}
+	return nil
+{{- end}}
 }
 
 // New returns an initialized configuration.
-func New() Config {
+func New() (Config, error) {
 	cfg := &config{
 		viper: viper.New(),
 	}
-	initViper(cfg.viper)
-	return cfg
+	err := initViper(cfg.viper)
+	return cfg, err
+}
+
+func InitGlobalConfig() error {
+	return initViper(viper.GetViper())
 }
 
 {{- range .Cfg.Params}}
