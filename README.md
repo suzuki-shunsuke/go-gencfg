@@ -72,6 +72,7 @@ $ gencfg gen
 Use global configuration.
 
 ```go
+config.InitGlobalConfig()
 config.GetUser()
 config.SetUser("foo")
 ```
@@ -79,7 +80,7 @@ config.SetUser("foo")
 Or use local configuration.
 
 ```go
-cfg := config.New()
+cfg, _ := config.New()
 cfg.GetUser()
 cfg.SetUser("foo")
 ```

@@ -15,6 +15,7 @@ type (
 		Pkg          string                 `yaml:"package"`
 		PkgName      string                 `yaml:"package_name"`
 		TemplatePath string                 `yaml:"template"`
+		CfgFilePath  string                 `yaml:"config_file_path"`
 		Default      Default                `yaml:"default"`
 		Params       []Param                `yaml:"params"`
 		Ext          map[string]interface{} `yaml:"ext"`
