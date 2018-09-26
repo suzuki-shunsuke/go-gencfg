@@ -45,5 +45,8 @@ func (uc CfgUsecase) Update(cfg *domain.Cfg) {
 	if cfg == nil {
 		return
 	}
+	if cfg.CfgFileParam.Type == "" {
+		cfg.CfgFileParam.Type = "string"
+	}
 	sort.Sort(domain.Params(cfg.Params))
 }
