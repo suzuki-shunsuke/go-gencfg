@@ -11,7 +11,7 @@ const DefaultCfgTmpl = `
 package {{$pkgName}}
 
 import (
-  {{- if .Cfg.CfgFilePath }}
+  {{- if .Cfg.CfgFileParam.Name }}
 	"github.com/pkg/errors"
   {{- end}}
   {{- if .CfgUC.HasFlag $flagUC .Cfg}}
@@ -20,13 +20,11 @@ import (
 	"github.com/spf13/viper"
 )
 
-{{if .Cfg.Params -}}
 const (
 {{- range .Cfg.Params}}
 	{{$paramUC.CamelCaseLowerName .}}Key = "{{.Name}}"
 {{- end}}
 )
-{{- end}}
 
 type (
 	// Config manages configuration.
@@ -66,16 +64,28 @@ func initViper(v *viper.Viper) error {
 	pflag.Parse()
   {{- end}}
 {{- end}}
-{{- if .Cfg.CfgFilePath }}
-	v.SetConfigFile("{{.Cfg.CfgFilePath}}")
+{{- if .Cfg.CfgFileParam.Name }}
+	v.SetConfigFile(v.GetString({{$paramUC.CamelCaseLowerName .Cfg.CfgFileParam}}Key))
 	if err := v.ReadInConfig(); err != nil {
 		return errors.Wrap(err, "failed to read config in file")
 	}
 	return nil
-{{ else }}
+{{- else }}
 	return nil
 {{- end}}
 }
+
+{{- if .Cfg.CfgFileParam.Name }}
+// ReadInConfig reads configuration in file.
+func ReadInConfig() error {
+	return viper.ReadInConfig()
+}
+
+// ReadInConfig reads configuration in file.
+func (cfg *config) ReadInConfig() error {
+	return cfg.viper.ReadInConfig()
+}
+{{- end}}
 
 // New returns an initialized configuration.
 func New() (Config, error) {
@@ -86,6 +96,7 @@ func New() (Config, error) {
 	return cfg, err
 }
 
+// InitGlobalConfig initializes configuration.
 func InitGlobalConfig() error {
 	return initViper(viper.GetViper())
 }
@@ -101,9 +112,6 @@ func (cfg *config) Get{{$paramUC.CamelCaseName .}}() {{$paramUC.GetType .}} {
 func (cfg *config) Set{{$paramUC.CamelCaseName .}}(value {{$paramUC.GetType .}}) {
 	cfg.viper.Set({{$paramUC.CamelCaseLowerName .}}Key, value)
 }
-{{- end}}
-
-{{- range .Cfg.Params}}
 
 // Get{{$paramUC.CamelCaseName .}} returns a {{.Name}}.
 func Get{{$paramUC.CamelCaseName .}}() {{$paramUC.GetType .}} {
