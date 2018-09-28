@@ -33,6 +33,9 @@ type (
 		Get{{$paramUC.CamelCaseName .}}() {{$paramUC.GetType .}} 
 		Set{{$paramUC.CamelCaseName .}}(value {{$paramUC.GetType .}}) 
 {{- end}}
+{{- if .Cfg.CfgFileParam.Name }}
+		ReadFile() error
+{{- end}}
 	}
 
 	config struct {
@@ -40,7 +43,7 @@ type (
 	}
 )
 
-func initViper(v *viper.Viper) error {
+func initViper(v *viper.Viper) {
 {{- if .Cfg.Params}}
   {{- range .Cfg.Params}}
     {{- if $envUC.IsBind .Env $default.Env.Bind }}
@@ -66,39 +69,33 @@ func initViper(v *viper.Viper) error {
 {{- end}}
 {{- if .Cfg.CfgFileParam.Name }}
 	v.SetConfigFile(v.GetString({{$paramUC.CamelCaseLowerName .Cfg.CfgFileParam}}Key))
-	if err := v.ReadInConfig(); err != nil {
-		return errors.Wrap(err, "failed to read config in file")
-	}
-	return nil
-{{- else }}
-	return nil
 {{- end}}
 }
 
 {{- if .Cfg.CfgFileParam.Name }}
-// ReadInConfig reads configuration in file.
-func ReadInConfig() error {
+// ReadFile reads configuration in file.
+func ReadFile() error {
 	return viper.ReadInConfig()
 }
 
-// ReadInConfig reads configuration in file.
-func (cfg *config) ReadInConfig() error {
+// ReadFile reads configuration in file.
+func (cfg *config) ReadFile() error {
 	return cfg.viper.ReadInConfig()
 }
 {{- end}}
 
 // New returns an initialized configuration.
-func New() (Config, error) {
+func New() Config {
 	cfg := &config{
 		viper: viper.New(),
 	}
-	err := initViper(cfg.viper)
-	return cfg, err
+	initViper(cfg.viper)
+	return cfg
 }
 
 // InitGlobalConfig initializes configuration.
-func InitGlobalConfig() error {
-	return initViper(viper.GetViper())
+func InitGlobalConfig() {
+	initViper(viper.GetViper())
 }
 
 {{- range .Cfg.Params}}
