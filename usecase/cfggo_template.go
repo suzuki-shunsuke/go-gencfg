@@ -11,9 +11,6 @@ const DefaultCfgTmpl = `
 package {{$pkgName}}
 
 import (
-  {{- if .Cfg.CfgFileParam.Name }}
-	"github.com/pkg/errors"
-  {{- end}}
   {{- if .CfgUC.HasFlag $flagUC .Cfg}}
 	"github.com/spf13/pflag"
   {{- end}}
