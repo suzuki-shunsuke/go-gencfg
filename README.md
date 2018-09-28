@@ -80,7 +80,7 @@ config.SetUser("foo")
 Or use local configuration.
 
 ```go
-cfg, _ := config.New()
+cfg := config.New()
 cfg.GetUser()
 cfg.SetUser("foo")
 ```
