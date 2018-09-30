@@ -9,7 +9,8 @@ dest: config/config.go
 package_name:
 package:
 template: .gencfg_config.tmpl
-config_file_path:
+config_file_param:
+  name: config_file_path
 formatters:
 - gofmt -l -s -w
 default:
