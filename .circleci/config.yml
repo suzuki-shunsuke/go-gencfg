@@ -10,9 +10,11 @@ jobs:
     - run: npm i
     - run: dep-dl
     - run: bash scripts/commitlint-circleci.sh
-    - run: gometalinter ./...
+    - run: npm run fmt
+    - run: npm run vet
+    - run: npm run lint
     - run: bash scripts/codecov-test.sh
-    - run: bash <(curl -s https://codecov.io/bash)
+    - run: test "$LOCAL" == "true" || bash <(curl -s https://codecov.io/bash)
     - run: bash scripts/release.sh
 workflows:
   version: 2
