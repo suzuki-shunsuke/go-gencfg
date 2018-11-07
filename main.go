@@ -5,7 +5,7 @@ import (
 
 	"github.com/urfave/cli"
 
-	"github.com/suzuki-shunsuke/go-gencfg/domain"
+	"github.com/suzuki-shunsuke/go-gencfg/internal/domain"
 )
 
 func main() {

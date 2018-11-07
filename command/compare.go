@@ -3,10 +3,10 @@ package command
 import (
 	"github.com/urfave/cli"
 
-	"github.com/suzuki-shunsuke/go-gencfg/config"
-	"github.com/suzuki-shunsuke/go-gencfg/domain"
-	"github.com/suzuki-shunsuke/go-gencfg/registry"
-	"github.com/suzuki-shunsuke/go-gencfg/usecase"
+	"github.com/suzuki-shunsuke/go-gencfg/internal/config"
+	"github.com/suzuki-shunsuke/go-gencfg/internal/domain"
+	"github.com/suzuki-shunsuke/go-gencfg/internal/registry"
+	"github.com/suzuki-shunsuke/go-gencfg/internal/usecase"
 )
 
 // CmdCompare is sub command "compare".
