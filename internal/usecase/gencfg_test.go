@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"testing"
 
+	"github.com/suzuki-shunsuke/gomic/gomic"
+
 	"github.com/suzuki-shunsuke/go-gencfg/internal/domain"
 	"github.com/suzuki-shunsuke/go-gencfg/internal/test"
 	"github.com/suzuki-shunsuke/go-gencfg/internal/usecase"
@@ -11,10 +13,10 @@ import (
 
 func TestGenCfgFile(t *testing.T) {
 	args := domain.GenCfgFileArgs{
-		Reader:    test.NoopFileReader{},
-		CfgReader: test.NoopCfgReader{},
-		Generater: test.NoopCodeGenerater{},
-		Executer:  test.NoopCmdExecuter{},
+		Reader:    test.NewFileReaderMock(t, gomic.DoNothing),
+		CfgReader: test.NewCfgReaderMock(t, gomic.DoNothing),
+		Generator: test.NewCodeGeneratorMock(t, gomic.DoNothing),
+		Executer:  test.NewCmdExecuterMock(t, gomic.DoNothing),
 		CfgUC:     usecase.CfgUsecase{},
 		EnvUC:     usecase.EnvUsecase{},
 		FlagUC:    usecase.FlagUsecase{},
@@ -23,23 +25,19 @@ func TestGenCfgFile(t *testing.T) {
 	if err := usecase.GenCfgFile(args); err != nil {
 		t.Fatal(err)
 	}
-	args.CfgReader = test.NoopCfgReader{
-		Err: fmt.Errorf(""),
-	}
+	cfgReader := test.NewCfgReaderMock(t, gomic.DoNothing)
+	cfgReader.SetFakeRead(domain.Cfg{}, fmt.Errorf("failed to read the configuration file"))
+	args.CfgReader = cfgReader
 	if err := usecase.GenCfgFile(args); err == nil {
 		t.Fatal("it should be failed to read configuration")
 	}
-	args.CfgReader = test.NoopCfgReader{}
+	cfgReader.Impl.Read = nil
 	args.Dest = "hoge"
 	if err := usecase.GenCfgFile(args); err == nil {
 		t.Fatal("invalid dest")
 	}
 	args.Dest = ""
-	args.CfgReader = test.NoopCfgReader{
-		Cfg: domain.Cfg{
-			Dest: "hoge.go",
-		},
-	}
+	cfgReader.SetFakeRead(domain.Cfg{Dest: "hoge.go"}, nil)
 	if err := usecase.GenCfgFile(args); err != nil {
 		t.Fatal(err)
 	}

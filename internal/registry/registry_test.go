@@ -10,8 +10,8 @@ func TestNewCfgReader(t *testing.T) {
 	registry.NewCfgReader()
 }
 
-func TestNewCodeGenerater(t *testing.T) {
-	registry.NewCodeGenerater()
+func TestNewCodeGenerator(t *testing.T) {
+	registry.NewCodeGenerator()
 }
 
 func TestNewTemplateRenderer(t *testing.T) {

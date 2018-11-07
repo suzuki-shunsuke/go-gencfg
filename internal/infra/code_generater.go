@@ -8,8 +8,8 @@ import (
 )
 
 type (
-	// CodeGenerater generates code.
-	CodeGenerater struct {
+	// CodeGenerator generates code.
+	CodeGenerator struct {
 		Renderer   domain.TemplateRenderer
 		DirMaker   domain.DirMaker
 		FileWriter domain.FileWriter
@@ -17,7 +17,7 @@ type (
 )
 
 // Exec generates code with template and configuration.
-func (cg CodeGenerater) Exec(dest, cfgTmpl string, config domain.TemplateData) error {
+func (cg CodeGenerator) Exec(dest, cfgTmpl string, config domain.TemplateData) error {
 	// create directory
 	dir := filepath.Dir(dest)
 	fmt.Printf("create %s\n", dir)

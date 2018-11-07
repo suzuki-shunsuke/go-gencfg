@@ -12,27 +12,27 @@ import (
 )
 
 type (
-	// CodeGeneraterMock is a mock.
-	CodeGeneraterMock struct {
+	// CodeGeneratorMock is a mock.
+	CodeGeneratorMock struct {
 		t                      *testing.T
 		name                   string
 		CallbackNotImplemented gomic.CallbackNotImplemented
-		Impl                   CodeGeneraterMockImpl
+		Impl                   CodeGeneratorMockImpl
 	}
 
-	// CodeGeneraterMockImpl holds functions which implement interface's methods.
-	CodeGeneraterMockImpl struct {
+	// CodeGeneratorMockImpl holds functions which implement interface's methods.
+	CodeGeneratorMockImpl struct {
 		Exec func(dest, tmpl string, config test.TemplateData) error
 	}
 )
 
-// NewCodeGeneraterMock returns CodeGeneraterMock .
-func NewCodeGeneraterMock(t *testing.T, cb gomic.CallbackNotImplemented) *CodeGeneraterMock {
-	return &CodeGeneraterMock{t: t, CallbackNotImplemented: cb}
+// NewCodeGeneratorMock returns CodeGeneratorMock .
+func NewCodeGeneratorMock(t *testing.T, cb gomic.CallbackNotImplemented) *CodeGeneratorMock {
+	return &CodeGeneratorMock{t: t, CallbackNotImplemented: cb}
 }
 
 // Exec is a mock method.
-func (mock CodeGeneraterMock) Exec(dest, tmpl string, config test.TemplateData) error {
+func (mock CodeGeneratorMock) Exec(dest, tmpl string, config test.TemplateData) error {
 	methodName := "Exec" // nolint: goconst
 	if mock.Impl.Exec != nil {
 		return mock.Impl.Exec(dest, tmpl, config)
@@ -46,14 +46,14 @@ func (mock CodeGeneraterMock) Exec(dest, tmpl string, config test.TemplateData) 
 }
 
 // SetFakeExec sets a fake method.
-func (mock *CodeGeneraterMock) SetFakeExec(r0 error) {
+func (mock *CodeGeneratorMock) SetFakeExec(r0 error) {
 	mock.Impl.Exec = func(dest, tmpl string, config test.TemplateData) error {
 		return r0
 	}
 }
 
 // fakeZeroExec is a fake method which returns zero values.
-func (mock CodeGeneraterMock) fakeZeroExec(dest, tmpl string, config test.TemplateData) error {
+func (mock CodeGeneratorMock) fakeZeroExec(dest, tmpl string, config test.TemplateData) error {
 	var (
 		r0 error
 	)

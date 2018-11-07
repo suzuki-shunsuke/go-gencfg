@@ -12,7 +12,7 @@ import (
 	"github.com/suzuki-shunsuke/go-gencfg/internal/test"
 )
 
-func TestCodeGeneraterExec(t *testing.T) {
+func TestCodeGeneratorExec(t *testing.T) {
 	failedToMkdirMock := test.NewDirMakerMock(t, gomic.DoNothing)
 	failedToMkdirMock.SetFakeMake(fmt.Errorf("failed to mkdir"))
 	failedToRendererMock := test.NewTemplateRendererMock(t, gomic.DoNothing)
@@ -49,7 +49,7 @@ func TestCodeGeneraterExec(t *testing.T) {
 
 	for _, d := range data {
 		t.Run(d.message, func(t *testing.T) {
-			cg := infra.CodeGenerater{
+			cg := infra.CodeGenerator{
 				Renderer:   d.renderer,
 				DirMaker:   d.dirMaker,
 				FileWriter: d.fileWriter,

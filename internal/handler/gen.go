@@ -18,7 +18,7 @@ func CmdGen(c *cli.Context) error {
 			TmplPath:  config.GetTemplatePath(c),
 			Reader:    registry.NewFileReader(),
 			CfgReader: registry.NewCfgReader(),
-			Generater: registry.NewCodeGenerater(),
+			Generator: registry.NewCodeGenerator(),
 			Executer:  registry.NewCmdExecuter(),
 			CfgUC:     registry.NewCfgUsecase(),
 			EnvUC:     registry.NewEnvUsecase(),

@@ -18,7 +18,7 @@ type (
 		TmplPath  string
 		Reader    FileReader
 		CfgReader CfgReader
-		Generater CodeGenerater
+		Generator CodeGenerator
 		Executer  CmdExecuter
 		CfgUC     CfgUsecase
 		EnvUC     EnvUsecase

@@ -26,8 +26,8 @@ func ValidateGenCfgFileArgs(args domain.GenCfgFileArgs) error {
 	if args.CfgReader == nil {
 		return fmt.Errorf("GenCfgFileArgs.CfgReader is required")
 	}
-	if args.Generater == nil {
-		return fmt.Errorf("GenCfgFileArgs.Generater is required")
+	if args.Generator == nil {
+		return fmt.Errorf("GenCfgFileArgs.Generator is required")
 	}
 	if args.Executer == nil {
 		return fmt.Errorf("GenCfgFileArgs.Executer is required")
@@ -54,7 +54,7 @@ func GenCfgFile(args domain.GenCfgFileArgs) error {
 	}
 	reader := args.Reader
 	cfgUC := args.CfgUC
-	generater := args.Generater
+	generater := args.Generator
 	executer := args.Executer
 	dest := args.Dest
 	tmplPath := args.TmplPath

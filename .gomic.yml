@@ -34,7 +34,7 @@ items:
     file: internal/test/template_renderer_mock.go
 - src:
     dir: internal/domain
-    interface: CodeGenerater
+    interface: CodeGenerator
   dest:
     package: test
     file: internal/test/code_generator_mock.go
@@ -50,3 +50,9 @@ items:
   dest:
     package: test
     file: internal/test/str_formatter_mock.go
+- src:
+    dir: internal/domain
+    interface: CmdExecuter
+  dest:
+    package: test
+    file: internal/test/cmd_executer_mock.go
