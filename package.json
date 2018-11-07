@@ -1,14 +1,17 @@
 {
   "version": "0.2.3",
   "scripts": {
-    "test": "bash scripts/test.sh",
+    "test": "go test ./... -covermode=atomic",
     "fmt": "bash scripts/fmt.sh",
     "coverage": "bash scripts/coverage.sh",
-    "tag": "bash scripts/tag.sh"
+    "tag": "bash scripts/tag.sh",
+    "lint": "gometalinter ./...",
+    "vet": "go vet ./...",
+    "ci-local": "circleci build -e LOCAL=true"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "bash scripts/test.sh",
+      "pre-commit": "npm run fmt && npm run vet && npm run lint && npm t",
       "commit-msg": "commitlint -e $GIT_PARAMS"
     }
   },
