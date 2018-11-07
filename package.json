@@ -1,12 +1,12 @@
 {
   "version": "0.2.3",
   "scripts": {
-    "precommit": "bash script/test.sh",
+    "precommit": "bash scripts/test.sh",
     "commitmsg": "commitlint -e $GIT_PARAMS",
-    "test": "bash script/test.sh",
-    "fmt": "bash script/fmt.sh",
-    "coverage": "bash script/coverage.sh",
-    "tag": "bash script/tag.sh"
+    "test": "bash scripts/test.sh",
+    "fmt": "bash scripts/fmt.sh",
+    "coverage": "bash scripts/coverage.sh",
+    "tag": "bash scripts/tag.sh"
   },
   "devDependencies": {
     "@commitlint/cli": "^6.1.3",
