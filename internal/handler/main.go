@@ -1,4 +1,4 @@
-package main
+package handler
 
 import (
 	"os"
@@ -8,7 +8,8 @@ import (
 	"github.com/suzuki-shunsuke/go-gencfg/internal/domain"
 )
 
-func main() {
+// Main is called cmd/gencfg/main.go .
+func Main() {
 	app := cli.NewApp()
 	app.Name = "gencfg"
 	app.Version = domain.Version
