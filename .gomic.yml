@@ -1,0 +1,58 @@
+---
+default:
+  interface_suffix: Mock
+items:
+- src:
+    dir: internal/domain
+    interface: FileExist
+  dest:
+    package: test
+    file: internal/test/file_exist_mock.go
+- src:
+    dir: internal/domain
+    interface: FileWriter
+  dest:
+    package: test
+    file: internal/test/file_writer_mock.go
+- src:
+    dir: internal/domain
+    interface: FileReader
+  dest:
+    package: test
+    file: internal/test/file_reader_mock.go
+- src:
+    dir: internal/domain
+    interface: DirMaker
+  dest:
+    package: test
+    file: internal/test/dir_maker_mock.go
+- src:
+    dir: internal/domain
+    interface: TemplateRenderer
+  dest:
+    package: test
+    file: internal/test/template_renderer_mock.go
+- src:
+    dir: internal/domain
+    interface: CodeGenerator
+  dest:
+    package: test
+    file: internal/test/code_generator_mock.go
+- src:
+    dir: internal/domain
+    interface: CfgReader
+  dest:
+    package: test
+    file: internal/test/cfg_reader_mock.go
+- src:
+    dir: internal/domain
+    interface: StrFormatter
+  dest:
+    package: test
+    file: internal/test/str_formatter_mock.go
+- src:
+    dir: internal/domain
+    interface: CmdExecuter
+  dest:
+    package: test
+    file: internal/test/cmd_executer_mock.go

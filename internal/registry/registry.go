@@ -11,9 +11,9 @@ func NewCfgReader() domain.CfgReader {
 	return infra.YAMLCfgReader{}
 }
 
-// NewCodeGenerater returns a new domain.CodeGenerater.
-func NewCodeGenerater() domain.CodeGenerater {
-	return infra.CodeGenerater{
+// NewCodeGenerator returns a new domain.CodeGenerator.
+func NewCodeGenerator() domain.CodeGenerator {
+	return infra.CodeGenerator{
 		Renderer:   NewTemplateRenderer(),
 		DirMaker:   infra.DirMaker{},
 		FileWriter: NewFileWriter(),

@@ -30,8 +30,8 @@ type (
 		Render(txt string, data interface{}) (string, error)
 	}
 
-	// CodeGenerater generates code at files with a template and data.
-	CodeGenerater interface {
+	// CodeGenerator generates code at files with a template and data.
+	CodeGenerator interface {
 		Exec(dest, tmpl string, config TemplateData) error
 	}
 
