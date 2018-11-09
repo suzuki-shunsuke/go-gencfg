@@ -26,18 +26,18 @@ func TestGenCfgFile(t *testing.T) {
 		t.Fatal(err)
 	}
 	cfgReader := test.NewCfgReaderMock(t, gomic.DoNothing)
-	cfgReader.SetFakeRead(domain.Cfg{}, fmt.Errorf("failed to read the configuration file"))
+	cfgReader.SetReturnRead(domain.Cfg{}, fmt.Errorf("failed to read the configuration file"))
 	args.CfgReader = cfgReader
 	if err := usecase.GenCfgFile(args); err == nil {
 		t.Fatal("it should be failed to read configuration")
 	}
-	cfgReader.Impl.Read = nil
+	cfgReader.SetFuncRead(nil)
 	args.Dest = "hoge"
 	if err := usecase.GenCfgFile(args); err == nil {
 		t.Fatal("invalid dest")
 	}
 	args.Dest = ""
-	cfgReader.SetFakeRead(domain.Cfg{Dest: "hoge.go"}, nil)
+	cfgReader.SetReturnRead(domain.Cfg{Dest: "hoge.go"}, nil)
 	if err := usecase.GenCfgFile(args); err != nil {
 		t.Fatal(err)
 	}

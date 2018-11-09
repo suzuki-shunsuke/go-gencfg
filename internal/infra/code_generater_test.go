@@ -14,9 +14,9 @@ import (
 
 func TestCodeGeneratorExec(t *testing.T) {
 	failedToMkdirMock := test.NewDirMakerMock(t, gomic.DoNothing)
-	failedToMkdirMock.SetFakeMake(fmt.Errorf("failed to mkdir"))
+	failedToMkdirMock.SetReturnMake(fmt.Errorf("failed to mkdir"))
 	failedToRendererMock := test.NewTemplateRendererMock(t, gomic.DoNothing)
-	failedToRendererMock.SetFakeRender("", fmt.Errorf("failed to renderer"))
+	failedToRendererMock.SetReturnRender("", fmt.Errorf("failed to renderer"))
 	data := []struct {
 		message    string
 		renderer   domain.TemplateRenderer
