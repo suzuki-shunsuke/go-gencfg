@@ -12,7 +12,7 @@ import (
 func TestStrFormatterFormat(t *testing.T) {
 	formatter := infra.StrFormatter{}
 	reader := test.NewFileReaderMock(t, gomic.DoNothing)
-	reader.SetFakeRead("hello", nil)
+	reader.SetReturnRead("hello", nil)
 	executer := test.NewCmdExecuterMock(t, gomic.DoNothing)
 
 	t.Run("positive", func(t *testing.T) {
