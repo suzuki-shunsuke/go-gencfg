@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"github.com/suzuki-shunsuke/go-cliutil"
 	"github.com/urfave/cli"
 
 	"github.com/suzuki-shunsuke/go-gencfg/internal/config"
@@ -11,25 +12,22 @@ import (
 
 // CmdCompare is sub command "compare".
 func CmdCompare(c *cli.Context) error {
-	err := usecase.Compare(
-		domain.CompareArgs{
-			Src:          config.GetCfgPath(c),
-			Dest:         config.GetDestPath(c),
-			TmplPath:     config.GetTemplatePath(c),
-			IsQuiet:      config.GetQuiet(c),
-			IsFailure:    config.GetFailure(c),
-			Reader:       registry.NewFileReader(),
-			Renderer:     registry.NewTemplateRenderer(),
-			CfgReader:    registry.NewCfgReader(),
-			Executer:     registry.NewCmdExecuter(),
-			StrFormatter: registry.NewStrFormatter(),
-			CfgUC:        registry.NewCfgUsecase(),
-			EnvUC:        registry.NewEnvUsecase(),
-			FlagUC:       registry.NewFlagUsecase(),
-			ParamUC:      registry.NewParamUsecase(),
-		})
-	if err == nil {
-		return nil
-	}
-	return cli.NewExitError(err.Error(), 1)
+	return cliutil.ConvErrToExitError(
+		usecase.Compare(
+			domain.CompareArgs{
+				Src:          config.GetCfgPath(c),
+				Dest:         config.GetDestPath(c),
+				TmplPath:     config.GetTemplatePath(c),
+				IsQuiet:      config.GetQuiet(c),
+				IsFailure:    config.GetFailure(c),
+				Reader:       registry.NewFileReader(),
+				Renderer:     registry.NewTemplateRenderer(),
+				CfgReader:    registry.NewCfgReader(),
+				Executer:     registry.NewCmdExecuter(),
+				StrFormatter: registry.NewStrFormatter(),
+				CfgUC:        registry.NewCfgUsecase(),
+				EnvUC:        registry.NewEnvUsecase(),
+				FlagUC:       registry.NewFlagUsecase(),
+				ParamUC:      registry.NewParamUsecase(),
+			}))
 }

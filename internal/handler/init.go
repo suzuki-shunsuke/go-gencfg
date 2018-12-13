@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"github.com/suzuki-shunsuke/go-cliutil"
 	"github.com/urfave/cli"
 
 	"github.com/suzuki-shunsuke/go-gencfg/internal/config"
@@ -11,17 +12,14 @@ import (
 
 // CmdInit is the sub command "init".
 func CmdInit(c *cli.Context) error {
-	err := usecase.InitGenCfgFile(
-		domain.InitGenCfgFileArgs{
-			Dest:     config.GetCfgPath(c),
-			TmplDest: config.GetTemplatePath(c),
-			PNames:   config.GetParamNames(c),
-			Renderer: registry.NewTemplateRenderer(),
-			Writer:   registry.NewFileWriter(),
-			Exist:    registry.NewFileExist(),
-		})
-	if err == nil {
-		return nil
-	}
-	return cli.NewExitError(err.Error(), 1)
+	return cliutil.ConvErrToExitError(
+		usecase.InitGenCfgFile(
+			domain.InitGenCfgFileArgs{
+				Dest:     config.GetCfgPath(c),
+				TmplDest: config.GetTemplatePath(c),
+				PNames:   config.GetParamNames(c),
+				Renderer: registry.NewTemplateRenderer(),
+				Writer:   registry.NewFileWriter(),
+				Exist:    registry.NewFileExist(),
+			}))
 }
