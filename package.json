@@ -8,6 +8,7 @@
     "lint": "gometalinter ./...",
     "vet": "go vet ./...",
     "gen-mock": "gomic gen && npm run fmt",
+    "durl": "bash scripts/durl.sh",
     "ci-local": "circleci build -e LOCAL=true"
   },
   "husky": {
